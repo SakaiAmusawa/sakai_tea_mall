@@ -5,17 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>top.sakai</groupId>
-        <artifactId>jsd2311_sakai_tea_mall</artifactId>
+        <artifactId>tmall-front</artifactId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>tmall-front</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>tmall-front-account</module>
-        <module>tmall-front-mall</module>
-        <module>tmall-front-content</module>
-    </modules>
+    <artifactId>tmall-front-account</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
