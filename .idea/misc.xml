@@ -5,6 +5,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/tmall-admin/tmall-admin-content/pom.xml" />
+        <option value="$PROJECT_DIR$/tmall-admin/tmall-admin-mall/pom.xml" />
+        <option value="$PROJECT_DIR$/tmall-admin/tmall-admin-account/pom.xml" />
+        <option value="$PROJECT_DIR$/tmall-admin/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

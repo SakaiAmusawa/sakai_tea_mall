@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Sakai
  */
 @RestController
-@RequestMapping
 public class CategoryController {
     /**
      * 添加分类接口

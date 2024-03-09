@@ -10,7 +10,6 @@ import java.util.List;
  * @author Sakai
  */
 @RestController
-@RequestMapping
 public class ArticleController {
     /**
      * 文章列表接口
@@ -18,7 +17,6 @@ public class ArticleController {
      * @param categoryId 类别id
      * @return 文章列表
      */
-    @GetMapping
     public List<Object> articleList(Long categoryId) {
         return null;
     }
@@ -29,7 +27,6 @@ public class ArticleController {
      * @param articleId 文章id
      * @return 文章详情
      */
-    @GetMapping
     public Object getArticleById(Long articleId) {
         return null;
     }

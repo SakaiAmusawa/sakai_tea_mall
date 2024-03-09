@@ -16,7 +16,6 @@ public class CategoryController {
      * 类别列表接
      * @return 类别列表
      */
-    @GetMapping
     public List<Object> categoryList() {
         return null;
     }
