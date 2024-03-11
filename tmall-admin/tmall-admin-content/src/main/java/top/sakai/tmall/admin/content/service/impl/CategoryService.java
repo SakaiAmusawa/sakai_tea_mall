@@ -1,6 +1,8 @@
 package top.sakai.tmall.admin.content.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.sakai.tmall.admin.content.dao.CategoryMapper;
 import top.sakai.tmall.admin.content.pojo.param.CategoryAddParam;
@@ -8,13 +10,12 @@ import top.sakai.tmall.admin.content.pojo.po.CategoryPO;
 import top.sakai.tmall.admin.content.service.ICategoryService;
 
 @Service
+@Slf4j
 public class CategoryService implements ICategoryService {
 
-    private final CategoryMapper categoryMapper;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
-    public CategoryService(CategoryMapper categoryMapper) {
-        this.categoryMapper = categoryMapper;
-    }
 
     @Override
     public void addCategory(CategoryAddParam categoryAddParam) {

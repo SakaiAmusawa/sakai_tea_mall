@@ -30,6 +30,8 @@ public class CategoryTests {
 
         //通过反射机制创建对象
         Object o = aClass.newInstance();
+        Method wirteMethod = aClass.getMethod("setName", String.class);
+        wirteMethod.invoke(o, "经验");
         System.out.println(o);
     }
 }
