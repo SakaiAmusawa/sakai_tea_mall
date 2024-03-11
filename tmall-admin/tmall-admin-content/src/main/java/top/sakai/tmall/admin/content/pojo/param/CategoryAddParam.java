@@ -18,11 +18,11 @@ import javax.validation.constraints.Size;
 //设置字段的默认级别
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryAddParam {
+    @ApiModelProperty(required = true, dataType = "String", example = "经验")
     @NotNull(message = "类别名称不能为空-byNoyNull") //不能为null
     @NotBlank(message = "类别名称不能为空-byNotBlank") //不能为“ ” 、“” 、null
     @NotEmpty(message = "类别名称不能为空-byEmpty") //放到容器上
     @Size(min = 1, max = 5, message = "类别名不能过长-bySize")
     @Length(min = 1, max = 5, message = "类别名不能过长-byLength")
-    @ApiModelProperty(required = true, dataType = "String", example = "经验")
     String name;
 }
