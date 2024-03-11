@@ -8,6 +8,6 @@ import top.sakai.tmall.admin.content.service.ICategoryService;
 public class AAACategoryService implements ICategoryService {
     @Override
     public void addCategory(CategoryAddParam categoryAddParam) {
-        System.out.println("TestService = " + categoryAddParam);
+        System.out.println("AAACategoryService = " + categoryAddParam);
     }
 }
