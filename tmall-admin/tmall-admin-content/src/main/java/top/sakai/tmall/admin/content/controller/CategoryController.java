@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.sakai.tmall.admin.content.pojo.param.CategoryAddParam;
 import top.sakai.tmall.admin.content.service.ICategoryService;
+import top.sakai.tmall.common.response.JsonResult;
 
 /**
  * @author Sakai
@@ -34,7 +35,8 @@ public class CategoryController {
      */
     @ApiOperation("增加类别")
     @PostMapping("add")
-    public void addCategory(@Validated @RequestBody CategoryAddParam categoryAddParam) {
+    public JsonResult addCategory(@Validated @RequestBody CategoryAddParam categoryAddParam) {
         categoryService.addCategory(categoryAddParam);
+        return JsonResult.ok();
     }
 }
