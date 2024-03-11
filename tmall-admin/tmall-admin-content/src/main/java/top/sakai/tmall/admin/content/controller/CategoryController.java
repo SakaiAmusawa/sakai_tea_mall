@@ -12,24 +12,27 @@ import top.sakai.tmall.admin.content.pojo.param.CategoryAddParam;
 import top.sakai.tmall.admin.content.service.ICategoryService;
 
 /**
- * @author Sakai
+ * 管理端分类管理相关接口
  */
-@Api(tags = "管理端分类接口")
 @Slf4j
+@Api(tags = "管理端类别相关接口")
 @RestController
-@RequestMapping("/category/")
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired
-    private ICategoryService iCategoryService;
+    private ICategoryService categoryService;
 
     /**
-     * 添加分类接口
+     * 增加分类
      *
      * @param categoryAddParam 分类详情
      */
     @ApiOperation("增加类别")
-    @PostMapping("add")
+    @PostMapping("/add")
     public void addCategory(@RequestBody CategoryAddParam categoryAddParam) {
+
+        categoryService.addCategory(categoryAddParam);
+
     }
 }

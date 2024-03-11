@@ -5,10 +5,9 @@ import top.sakai.tmall.admin.content.pojo.param.CategoryAddParam;
 import top.sakai.tmall.admin.content.service.ICategoryService;
 
 @Service
-public class CategoryService implements ICategoryService {
-
+public class AAACategoryService implements ICategoryService {
     @Override
     public void addCategory(CategoryAddParam categoryAddParam) {
-        System.out.println("CategoryService = " + categoryAddParam);
+        System.out.println("TestService = " + categoryAddParam);
     }
 }
