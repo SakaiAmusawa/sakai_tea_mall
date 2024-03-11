@@ -23,6 +23,7 @@ public class CategoryTests {
         for (Method declaredMethod : aClass.getDeclaredMethods()) {
             System.out.println(declaredMethod.getName());
         }
+
         for (Field field : aClass.getDeclaredFields()) {
             System.out.println(field.getName());
         }
