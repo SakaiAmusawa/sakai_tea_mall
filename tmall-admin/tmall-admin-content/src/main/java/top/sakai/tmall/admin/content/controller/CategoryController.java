@@ -24,8 +24,6 @@ import top.sakai.tmall.common.response.JsonResult;
 public class CategoryController {
 
     @Autowired
-    //指定自动装配的对象
-    @Qualifier("AAACategoryService")
     private ICategoryService categoryService;
 
     /**
