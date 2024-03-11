@@ -11,7 +11,7 @@ import top.sakai.tmall.admin.content.pojo.param.CategoryAddParam;
 /**
  * @author Sakai
  */
-@Api(tags = "管理段分类接口")
+@Api(tags = "管理端分类接口")
 @RestController
 @RequestMapping("/category/")
 public class CategoryController {
