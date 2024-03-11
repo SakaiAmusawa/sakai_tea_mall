@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class JsonResult implements Serializable {
+
     Integer code;
     String message;
     Object data;

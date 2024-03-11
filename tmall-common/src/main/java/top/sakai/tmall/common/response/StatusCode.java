@@ -17,4 +17,5 @@ public enum StatusCode {
 
     Integer code;
     String message;
+
 }
