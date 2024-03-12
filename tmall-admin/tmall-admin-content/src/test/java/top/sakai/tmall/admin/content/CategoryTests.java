@@ -1,5 +1,6 @@
 package top.sakai.tmall.admin.content;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.List;
 
 @SpringBootTest
 public class CategoryTests {
@@ -77,8 +79,20 @@ public class CategoryTests {
     @Test
     public void testCategoryPlusMapper() {
         CategoryPO categoryPO = new CategoryPO();
-        categoryPO.setName("test");
+        categoryPO.setName("test1");
         categoryMapper.insert(categoryPO);
         System.out.println(categoryPO.getId());
+    }
+
+    @Test
+    public void testCategoryPlusCRUDMapper() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("id", 4);
+        List list = categoryMapper.selectMaps(queryWrapper);
+        System.out.println(list);
+        QueryWrapper queryWrapperDelete = new QueryWrapper();
+        queryWrapperDelete.eq("name", "test");
+        int delete = categoryMapper.delete(queryWrapperDelete);
+        System.out.println(delete);
     }
 }

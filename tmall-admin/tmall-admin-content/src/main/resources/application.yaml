@@ -7,5 +7,8 @@ spring:
     username: root
     password: root
 
-mybatis:
+#mybatis:
+#  mapper-locations: classpath:mappers/**/*.xml
+#告诉mybatis-plus mapper的地址
+mybatis-plus:
   mapper-locations: classpath:mappers/**/*.xml
