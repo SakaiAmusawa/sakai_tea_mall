@@ -2,6 +2,7 @@ package top.sakai.tmall.admin.content.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import top.sakai.tmall.common.response.JsonResult;
  * @author Sakai
  */
 @Api(tags = "文章管理相关接口")
+@Slf4j
 @RestController
 @RequestMapping("article/")
 public class ArticleController {
@@ -30,7 +32,11 @@ public class ArticleController {
     @ApiOperation("增加文章")
     @PostMapping("add")
     public JsonResult addArticle(@Validated @RequestBody ArticleAddParam articleAddParam) {
+        log.debug("校验通过，开始处理请求");
+        log.debug("添加文章入参{}", articleAddParam);
         articleService.save(articleAddParam);
+        log.debug("添加文章返回响应{}{}", JsonResult.ok().getCode(), JsonResult.ok().getMessage());
         return JsonResult.ok();
+
     }
 }

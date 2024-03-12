@@ -1,9 +1,11 @@
 package top.sakai.tmall.admin.content.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import top.sakai.tmall.common.response.JsonResult;
+import top.sakai.tmall.common.response.StatusCode;
 
 /**
  * 全局异常处理器
@@ -18,4 +20,12 @@ public class GlobalExceptionHandler {
         //2.返回错误状态码
         return new JsonResult(exception.getStatusCode());
     }
+
+    @ExceptionHandler
+    public JsonResult doMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        String message = exception.getFieldError().getDefaultMessage();
+        log.debug("MethodArgumentNotValidException:" + message);
+        return new JsonResult(StatusCode.VALIDATION_FAIL, message);
+    }
+
 }
