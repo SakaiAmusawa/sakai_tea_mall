@@ -1,5 +1,6 @@
 package top.sakai.tmall.admin.content.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,10 @@ public class CategoryService implements ICategoryService {
         // 1.校验数据
         // 2.判断类别名称是否存在
         String name = categoryAddParam.getName();
-        CategoryPO categoryPO = categoryMapper.getCategoryByName(name);
-        if (categoryPO == null) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("name", name);
+        Long count = categoryMapper.selectCount(queryWrapper);
+        if (count == 0) {
             //  2.2 不存在 保存类别到数据库
             CategoryPO newCategoryPO = new CategoryPO();
             BeanUtils.copyProperties(categoryAddParam, newCategoryPO);

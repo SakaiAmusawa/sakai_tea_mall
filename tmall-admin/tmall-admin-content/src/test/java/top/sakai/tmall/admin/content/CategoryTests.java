@@ -95,4 +95,20 @@ public class CategoryTests {
         int delete = categoryMapper.delete(queryWrapperDelete);
         System.out.println(delete);
     }
+
+    @Test
+    public void testMybatisPlusSelect() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("name", "test1");
+
+        /*
+        One record is expected, but the query result is multiple records
+        查询出的结果过多
+        CategoryPO categoryPO = categoryMapper.selectOne(queryWrapper);
+        System.out.println(categoryPO);
+         */
+
+        Long count = categoryMapper.selectCount(queryWrapper);
+        System.out.println(count);
+    }
 }
