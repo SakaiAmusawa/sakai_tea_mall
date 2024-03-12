@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import top.sakai.tmall.admin.content.dao.CategoryMapper;
+import top.sakai.tmall.admin.content.pojo.param.CategoryAddParam;
 import top.sakai.tmall.admin.content.pojo.po.CategoryPO;
+import top.sakai.tmall.admin.content.service.ICategoryService;
 
 import javax.sql.DataSource;
 import java.lang.annotation.Annotation;
@@ -19,6 +21,8 @@ public class CategoryTests {
     private CategoryMapper categoryMapper;
     @Autowired
     private DataSource dataSource;
+    @Autowired
+    private ICategoryService categoryService;
 
     public static void main(String[] args) throws Exception {
         Class<?> aClass = Class.forName("top.sakai.tmall.admin.content.pojo.po.CategoryPO");
@@ -61,5 +65,20 @@ public class CategoryTests {
     public void testCategoryMapper() {
         CategoryPO categoryPO = categoryMapper.getCategoryByName("经验");
         System.out.println(categoryPO);
+    }
+
+    @Test
+    public void testCategoryService() {
+        CategoryAddParam param = new CategoryAddParam();
+        param.setName("经验");
+        categoryService.addCategory(param);
+    }
+
+    @Test
+    public void testCategoryPlusMapper() {
+        CategoryPO categoryPO = new CategoryPO();
+        categoryPO.setName("test");
+        categoryMapper.insert(categoryPO);
+        System.out.println(categoryPO.getId());
     }
 }
