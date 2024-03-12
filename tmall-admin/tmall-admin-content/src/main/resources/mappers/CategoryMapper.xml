@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.sakai.tmall.admin.content.dao.CategoryMapper">
+<mapper namespace="top.sakai.tmall.admin.content.dao.mapper.CategoryMapper">
     <resultMap id="standerResultMap" type="top.sakai.tmall.admin.content.pojo.po.CategoryPO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>

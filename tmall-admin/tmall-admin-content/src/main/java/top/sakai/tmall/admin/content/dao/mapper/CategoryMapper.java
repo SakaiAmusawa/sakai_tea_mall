@@ -1,4 +1,4 @@
-package top.sakai.tmall.admin.content.dao;
+package top.sakai.tmall.admin.content.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import top.sakai.tmall.admin.content.pojo.po.CategoryPO;

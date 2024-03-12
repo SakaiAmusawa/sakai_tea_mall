@@ -4,7 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import top.sakai.tmall.admin.content.dao.CategoryMapper;
+import top.sakai.tmall.admin.content.dao.mapper.CategoryMapper;
+import top.sakai.tmall.admin.content.dao.repository.ICategoryRepository;
 import top.sakai.tmall.admin.content.pojo.param.CategoryAddParam;
 import top.sakai.tmall.admin.content.pojo.po.CategoryPO;
 import top.sakai.tmall.admin.content.service.ICategoryService;
@@ -25,6 +26,8 @@ public class CategoryTests {
     private DataSource dataSource;
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private ICategoryRepository categoryRepository;
 
     public static void main(String[] args) throws Exception {
         Class<?> aClass = Class.forName("top.sakai.tmall.admin.content.pojo.po.CategoryPO");
@@ -108,6 +111,14 @@ public class CategoryTests {
         System.out.println(categoryPO);
          */
 
+        Long count = categoryMapper.selectCount(queryWrapper);
+        System.out.println(count);
+    }
+
+    @Test
+    public void testCategoryRepository() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("name", "经验");
         Long count = categoryMapper.selectCount(queryWrapper);
         System.out.println(count);
     }
