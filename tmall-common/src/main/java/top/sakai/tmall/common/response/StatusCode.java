@@ -12,8 +12,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public enum StatusCode {
     SUCCESS(1000, "操作成功"),
-    FAIL(5000, "操作失败"),
-    NOT_LOGIN();
+    FAIL(5000, "操作失败");
 
     Integer code;
     String message;
