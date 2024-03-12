@@ -56,4 +56,10 @@ public class CategoryTests {
         CategoryPO categoryPO = new CategoryPO();
         System.out.println(categoryPO);
     }
+
+    @Test
+    public void testCategoryMapper() {
+        CategoryPO categoryPO = categoryMapper.getCategoryByName("经验");
+        System.out.println(categoryPO);
+    }
 }

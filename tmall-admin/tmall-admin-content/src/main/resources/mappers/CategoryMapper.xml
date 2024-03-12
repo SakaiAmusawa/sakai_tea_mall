@@ -3,12 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.sakai.tmall.admin.content.dao.CategoryMapper">
-    <select id="getCategoryByName" resultType="top.sakai.tmall.admin.content.pojo.po.CategoryPO">
-        SELECT name
-        FROM tea_mall.category
+    <resultMap id="standerResultMap" type="top.sakai.tmall.admin.content.pojo.po.CategoryPO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="keywords" property="keywords"/>
+        <result column="sort" property="sort"/>
+        <result column="enable" property="enable"/>
+        <result column="is_display" property="isDisplay"/>
+    </resultMap>
+
+    <select id="getCategoryByName" resultMap="standerResultMap">
+        SELECT id, name, keywords, sort, enable, is_display
+        FROM tea_mall.content_category
+        WHERE name = #{name}
     </select>
     <insert id="save">
-        INSERT INTO tea_mall.category (name)
+        INSERT INTO tea_mall.content_category (name)
         VALUES (#{name})
     </insert>
 </mapper>
