@@ -6,9 +6,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.sakai.tmall.admin.content.dao.CategoryMapper;
+import top.sakai.tmall.admin.content.handler.ServiceException;
 import top.sakai.tmall.admin.content.pojo.param.CategoryAddParam;
 import top.sakai.tmall.admin.content.pojo.po.CategoryPO;
 import top.sakai.tmall.admin.content.service.ICategoryService;
+import top.sakai.tmall.common.response.StatusCode;
 
 @Service
 @Slf4j
@@ -33,7 +35,7 @@ public class CategoryService implements ICategoryService {
             categoryMapper.save(newCategoryPO);
         } else {
             //  2.1.存在 抛出异常
-            throw new RuntimeException("类别已存在");
+            throw new ServiceException(StatusCode.FAIL);
         }
     }
 }
