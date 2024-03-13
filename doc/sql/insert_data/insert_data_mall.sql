@@ -56,7 +56,7 @@ VALUES (1, '茶叶', 0, 1, '茶叶,茶', 99, 'https://fuss10.elemecdn.com/e/5d/4
 ;
 
 TRUNCATE mall_goods;
-INSERT INTO tedu_tea_mall.mall_goods
+INSERT INTO tea_mall.mall_goods
 VALUES (1, 2, '绿茶', '11010101110001', '2023年明前特级信阳毛尖绿茶 250克（125g*2罐）', '细、圆、紧、直 鲜爽持久',
         'http://localhost:19082/resources/goods-image/2023/06/01/733b8e72-1e53-4fe5-b285-6f1ab7327317.jpg', 216.00,
         '绿茶,毛尖,信阳毛尖', 0, 0, 0, 1, 0, 0, 0, 0, '2023-06-01 08:00:00', '2023-06-01 08:00:00'),
