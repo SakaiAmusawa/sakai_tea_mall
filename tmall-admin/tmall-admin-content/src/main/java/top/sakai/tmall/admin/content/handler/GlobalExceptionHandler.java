@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public JsonResult doMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         String message = exception.getFieldError().getDefaultMessage();
-        log.debug("MethodArgumentNotValidException:" + message);
+        log.debug("方法参数无效异常:" + message);
         return new JsonResult(StatusCode.VALIDATION_FAIL, message);
     }
 
