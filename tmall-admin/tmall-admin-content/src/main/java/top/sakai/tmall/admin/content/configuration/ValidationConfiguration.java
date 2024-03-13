@@ -2,7 +2,6 @@ package top.sakai.tmall.admin.content.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidator;
-import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +11,7 @@ import javax.validation.Validation;
 @Configuration
 public class ValidationConfiguration {
 
-    public ValidationConfiguration(){
+    public ValidationConfiguration() {
         log.debug("创建验证框架类-ValidationConfiguration 成功");
     }
 

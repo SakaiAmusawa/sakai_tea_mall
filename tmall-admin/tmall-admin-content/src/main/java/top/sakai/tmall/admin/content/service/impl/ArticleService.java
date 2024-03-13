@@ -5,11 +5,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.sakai.tmall.admin.content.dao.repository.IArticleRepository;
-import top.sakai.tmall.admin.content.handler.ServiceException;
 import top.sakai.tmall.admin.content.pojo.param.ArticleAddParam;
 import top.sakai.tmall.admin.content.pojo.po.ArticlePO;
 import top.sakai.tmall.admin.content.service.IArticleService;
-import top.sakai.tmall.common.response.StatusCode;
 
 @Service
 @Slf4j

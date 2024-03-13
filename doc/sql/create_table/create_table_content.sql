@@ -94,17 +94,17 @@ CREATE TABLE content_comment
 DROP TABLE IF EXISTS content_check_log;
 CREATE TABLE content_check_log
 (
-    id              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '数据ID',
-    resource_type   TINYINT UNSIGNED DEFAULT 0 COMMENT '资源类型，0=文章，1=评论',
-    resource_id     BIGINT UNSIGNED  DEFAULT 0 COMMENT '资源ID',
-    resource_brief  VARCHAR(255)     DEFAULT '' COMMENT '资源摘要，截取的文章标题或评论',
-    original_state  TINYINT UNSIGNED DEFAULT 0 COMMENT '原审核状态',
-    new_state       TINYINT UNSIGNED DEFAULT 0 COMMENT '新审核状态',
-    check_user_id   BIGINT UNSIGNED  DEFAULT 0 COMMENT '审核人ID',
+    id             BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '数据ID',
+    resource_type  TINYINT UNSIGNED DEFAULT 0 COMMENT '资源类型，0=文章，1=评论',
+    resource_id    BIGINT UNSIGNED  DEFAULT 0 COMMENT '资源ID',
+    resource_brief VARCHAR(255)     DEFAULT '' COMMENT '资源摘要，截取的文章标题或评论',
+    original_state TINYINT UNSIGNED DEFAULT 0 COMMENT '原审核状态',
+    new_state      TINYINT UNSIGNED DEFAULT 0 COMMENT '新审核状态',
+    check_user_id  BIGINT UNSIGNED  DEFAULT 0 COMMENT '审核人ID',
     check_username VARCHAR(32)      DEFAULT '' COMMENT '审核人用户名',
-    check_remarks   VARCHAR(64)      DEFAULT '' COMMENT '审核备注',
-    gmt_check       DATETIME         DEFAULT NULL COMMENT '审核时间',
-    gmt_create      DATETIME         DEFAULT NULL COMMENT '数据创建时间',
-    gmt_modified    DATETIME         DEFAULT NULL COMMENT '数据最后修改时间',
+    check_remarks  VARCHAR(64)      DEFAULT '' COMMENT '审核备注',
+    gmt_check      DATETIME         DEFAULT NULL COMMENT '审核时间',
+    gmt_create     DATETIME         DEFAULT NULL COMMENT '数据创建时间',
+    gmt_modified   DATETIME         DEFAULT NULL COMMENT '数据最后修改时间',
     PRIMARY KEY (id)
 ) COMMENT '内容-审核日志' CHARSET = utf8mb4;
