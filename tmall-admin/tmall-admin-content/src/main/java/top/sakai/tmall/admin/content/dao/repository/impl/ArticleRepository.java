@@ -17,6 +17,6 @@ public class ArticleRepository implements IArticleRepository {
     @Override
     public void save(ArticlePO articlePO) {
         int insert = articleMapper.insert(articlePO);
-        log.debug("插入是否成功{}", insert);
+        log.debug("插入是否成功 {}", insert);
     }
 }

@@ -33,9 +33,9 @@ public class ArticleController {
     @PostMapping("add")
     public JsonResult addArticle(@Validated @RequestBody ArticleAddParam articleAddParam) {
         log.debug("校验通过，开始处理请求");
-        log.debug("添加文章入参{}", articleAddParam);
+        log.debug("添加文章入参 {} ", articleAddParam);
         articleService.save(articleAddParam);
-        log.debug("添加文章返回响应{}{}", JsonResult.ok().getCode(), JsonResult.ok().getMessage());
+        log.debug("添加文章返回响应 状态码:{} 状态信息:{}", JsonResult.ok().getCode(), JsonResult.ok().getMessage());
         return JsonResult.ok();
 
     }
