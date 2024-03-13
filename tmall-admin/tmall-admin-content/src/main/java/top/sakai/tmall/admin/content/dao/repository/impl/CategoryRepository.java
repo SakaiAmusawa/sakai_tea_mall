@@ -25,4 +25,10 @@ public class CategoryRepository implements ICategoryRepository {
     public void save(CategoryPO newCategoryPO) {
         categoryMapper.save(newCategoryPO);
     }
+
+    @Override
+    public CategoryPO getCategoryById(Long categoryId) {
+        CategoryPO categoryPO = categoryMapper.selectById(categoryId);
+        return categoryPO;
+    }
 }

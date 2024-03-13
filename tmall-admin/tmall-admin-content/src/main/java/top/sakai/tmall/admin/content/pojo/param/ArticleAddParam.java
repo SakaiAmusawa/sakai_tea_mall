@@ -6,14 +6,15 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ArticleAddParam {
+public class ArticleAddParam implements Serializable {
     @ApiModelProperty(required = true, dataType = "String")
-    @NotEmpty(message = "标题不能为空")
-    String title;
+    @NotEmpty(message = "标题不能为空") String title;
     @ApiModelProperty(required = true, dataType = "String")
-    @NotEmpty(message = "摘要不能为空")
-    String brief;
+    @NotEmpty(message = "内容不能为空") String content;
+    @ApiModelProperty(required = true, dataType = "Long")
+    Long categoryId;
 }

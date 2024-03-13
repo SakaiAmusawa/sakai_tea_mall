@@ -11,12 +11,14 @@ import java.time.LocalDateTime;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@TableName(value = "content_article")
-public class ArticlePO {
+@TableName(value = "content_article_detail")
+public class ArticleDetailPO {
     @TableId(type = IdType.AUTO)
     Long id;
-    String title;
+    String detail;
     LocalDateTime gmtCreate;
     LocalDateTime gmtModified;
     Long categoryId;
+    Long articleId;
+
 }

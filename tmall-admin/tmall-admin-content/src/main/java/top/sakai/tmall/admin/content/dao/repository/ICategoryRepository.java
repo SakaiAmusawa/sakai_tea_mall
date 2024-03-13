@@ -6,4 +6,6 @@ public interface ICategoryRepository {
     Long countCategoryByName(String name);
 
     void save(CategoryPO newCategoryPO);
+
+    CategoryPO getCategoryById(Long categoryId);
 }
