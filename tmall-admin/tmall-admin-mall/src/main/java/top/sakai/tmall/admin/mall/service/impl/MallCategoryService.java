@@ -41,10 +41,12 @@ public class MallCategoryService implements IMallCategoryService {
             mallCategoryPO.setDepth(depth);
             Integer rows = mallCategoryRepository.save(mallCategoryPO);
             if (rows != 0) {
-                MallCategoryPO update = new MallCategoryPO();
-                update.setId(parentId);
-                update.setIsParent(1);
-                mallCategoryRepository.updateCategoryById(update);
+                if (parentMallCategoryPO.getIsParent() == 0) {
+                    MallCategoryPO update = new MallCategoryPO();
+                    update.setId(parentId);
+                    update.setIsParent(1);
+                    mallCategoryRepository.updateCategoryById(update);
+                }
             }
         }
     }
