@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import top.sakai.tmall.admin.content.dao.repository.IArticleRepository;
 import top.sakai.tmall.admin.content.dao.repository.ICategoryRepository;
 import top.sakai.tmall.admin.content.pojo.param.ArticleAddParam;
@@ -15,7 +14,7 @@ import top.sakai.tmall.admin.content.service.IArticleService;
 
 @Service
 @Slf4j
-@Transactional
+//@Transactional 不推荐加在此处，更加推荐加在接口的方法上
 public class ArticleService implements IArticleService {
     @Autowired
     private IArticleRepository articleRepository;
