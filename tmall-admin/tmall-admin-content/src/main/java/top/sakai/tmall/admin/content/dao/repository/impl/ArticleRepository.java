@@ -29,15 +29,17 @@ public class ArticleRepository implements IArticleRepository {
     }
 
     @Override
-    public void saveDetail(ArticleDetailPO articleDetailPO) {
-        articleDetailMapper.insert(articleDetailPO);
+    public int saveDetail(ArticleDetailPO articleDetailPO) {
+        int insertDetail = articleDetailMapper.insert(articleDetailPO);
+        return insertDetail;
     }
 
 
     @Override
-    public void save(ArticlePO articlePO) {
+    public int save(ArticlePO articlePO) {
         int insert = articleMapper.insert(articlePO);
         log.debug("插入是否成功 {}", insert);
+        return insert;
     }
 
 
