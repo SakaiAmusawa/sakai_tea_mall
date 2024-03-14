@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@TableName("")
+@TableName("mall_category")
 public class MallCategoryPO {
     @TableId(type = IdType.AUTO)
     Long id;
@@ -30,7 +30,7 @@ public class MallCategoryPO {
      * 是否为父级
      * 0 NO 1 YES
      */
-    String isParent;
+    Integer isParent;
     LocalDateTime gmtCreate;
     LocalDateTime gmtModified;
 }
