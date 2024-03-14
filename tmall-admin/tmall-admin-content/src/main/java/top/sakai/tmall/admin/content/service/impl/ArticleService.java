@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.sakai.tmall.admin.content.dao.repository.IArticleRepository;
 import top.sakai.tmall.admin.content.dao.repository.ICategoryRepository;
 import top.sakai.tmall.admin.content.pojo.param.ArticleAddParam;
@@ -14,6 +15,7 @@ import top.sakai.tmall.admin.content.service.IArticleService;
 
 @Service
 @Slf4j
+@Transactional
 public class ArticleService implements IArticleService {
     @Autowired
     private IArticleRepository articleRepository;
@@ -40,11 +42,18 @@ public class ArticleService implements IArticleService {
             if (enable == 1) {
                 ArticlePO articlePO = new ArticlePO();
                 BeanUtils.copyProperties(articleAddParam, articlePO);
-                articleRepository.save(articlePO);
+                int save = articleRepository.save(articlePO);
+                if (save != 1) {
+                    throw new RuntimeException("文章发布失败");
+                }
                 ArticleDetailPO articleDetailPO = new ArticleDetailPO();
                 articleDetailPO.setArticleId(articlePO.getId());
                 articleDetailPO.setDetail(articleAddParam.getContent());
-                articleRepository.saveDetail(articleDetailPO);
+                "".substring(10);//人为地制造一个异常模拟第二条数据保存时遇到问题
+                int i = articleRepository.saveDetail(articleDetailPO);
+                if (i != 1) {
+                    throw new RuntimeException("文章发送失败");
+                }
             } else {
                 throw new RuntimeException("类别已被禁用");
             }
