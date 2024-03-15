@@ -16,7 +16,7 @@ public class MallCategoryRepository implements IMallCategoryRepository {
     private MallCategoryMapper mallCategoryMapper;
 
     @Override
-    public Long countCategoryByName(String name) {
+    public Integer countCategoryByName(String name) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("name", name);
         return mallCategoryMapper.selectCount(queryWrapper);

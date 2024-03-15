@@ -2,14 +2,14 @@ package top.sakai.tmall.admin.mall.pojo.po;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @TableName("mall_category")
 public class MallCategoryPO {

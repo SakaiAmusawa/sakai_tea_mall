@@ -5,7 +5,7 @@ import top.sakai.tmall.admin.mall.pojo.po.MallCategoryPO;
 import java.util.List;
 
 public interface IMallCategoryRepository {
-    Long countCategoryByName(String name);
+    Integer countCategoryByName(String name);
 
     Integer save(MallCategoryPO mallCategoryPO);
 

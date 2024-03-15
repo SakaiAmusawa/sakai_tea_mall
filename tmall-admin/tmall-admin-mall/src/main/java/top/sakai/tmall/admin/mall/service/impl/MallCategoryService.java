@@ -23,7 +23,7 @@ public class MallCategoryService implements IMallCategoryService {
     @Override
     public void save(CategoryAddParam categoryAddParam) {
         String name = categoryAddParam.getName();
-        Long count = mallCategoryRepository.countCategoryByName(name);
+        Integer count = mallCategoryRepository.countCategoryByName(name);
         if (count != 0) {
             throw new RuntimeException("名称不能重复");
         }
@@ -59,6 +59,7 @@ public class MallCategoryService implements IMallCategoryService {
     @Override
     public List<MallCategoryTreeVO> showTree() {
         List<MallCategoryPO> mallCategoryPOS = mallCategoryRepository.getAll(); // todo 数据太大怎么办
+        log.debug("查询所有类别数据:{}", mallCategoryPOS);
         List<MallCategoryTreeVO> mallCategoryTreeVOS = buildTree(mallCategoryPOS, 0L);
         return mallCategoryTreeVOS;
     }
