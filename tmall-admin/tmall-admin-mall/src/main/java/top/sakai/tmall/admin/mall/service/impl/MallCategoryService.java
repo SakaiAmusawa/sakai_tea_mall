@@ -19,7 +19,6 @@ public class MallCategoryService implements IMallCategoryService {
 
     @Autowired
     private IMallCategoryRepository mallCategoryRepository;
-
     @Override
     public void save(CategoryAddParam categoryAddParam) {
         String name = categoryAddParam.getName();
@@ -61,8 +60,22 @@ public class MallCategoryService implements IMallCategoryService {
         List<MallCategoryPO> mallCategoryPOS = mallCategoryRepository.getAll(); // todo 数据太大怎么办
         log.debug("查询所有类别数据:{}", mallCategoryPOS);
         List<MallCategoryTreeVO> mallCategoryTreeVOS = buildTree(mallCategoryPOS, 0L);
+       /* List<MallCategoryTreeVO> topCategory = topCategory(mallCategoryPOS, 0L);
+        return topCategory;*/
         return mallCategoryTreeVOS;
     }
+
+/*    public List<MallCategoryTreeVO> topCategory(List<MallCategoryPO> categories, Long parentId) {
+        List<MallCategoryTreeVO> topCategory = new ArrayList<>();
+        categories.forEach(o -> {
+            if (o.getParentId() == parentId) {
+                MallCategoryTreeVO mallCategoryTreeVO = new MallCategoryTreeVO();
+                BeanUtils.copyProperties(o, mallCategoryTreeVO);
+                topCategory.add(mallCategoryTreeVO);
+            }
+        });
+        return topCategory;
+    }*/
 
     public List<MallCategoryTreeVO> buildTree(List<MallCategoryPO> categories, Long parentId) {
         List<MallCategoryTreeVO> treeNodes = new ArrayList<>();
@@ -72,6 +85,7 @@ public class MallCategoryService implements IMallCategoryService {
                 node.setId(category.getId());
                 node.setName(category.getName());
                 node.setChildren(buildTree(categories, category.getId()));
+                log.debug("{}", node);
                 treeNodes.add(node);
             }
         }
