@@ -18,7 +18,6 @@ public class ArticleDetailPO {
     String detail;
     LocalDateTime gmtCreate;
     LocalDateTime gmtModified;
-    Long categoryId;
     Long articleId;
 
 }

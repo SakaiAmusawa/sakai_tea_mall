@@ -10,6 +10,8 @@ import top.sakai.tmall.admin.content.dao.repository.IArticleRepository;
 import top.sakai.tmall.admin.content.pojo.po.ArticleDetailPO;
 import top.sakai.tmall.admin.content.pojo.po.ArticlePO;
 
+import java.util.List;
+
 @Repository
 @Slf4j
 public class ArticleRepository implements IArticleRepository {
@@ -34,6 +36,24 @@ public class ArticleRepository implements IArticleRepository {
         return insertDetail;
     }
 
+    @Override
+    public List<ArticlePO> selectByCategoryId(Long categoryId) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("category_id",categoryId);
+        return articleMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public ArticlePO basic(Long articleId) {
+        return articleMapper.selectById(articleId);
+    }
+
+    @Override
+    public ArticleDetailPO detail(Long articleId) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("article_id", articleId);
+        return articleDetailMapper.selectOne(queryWrapper);
+    }
 
     @Override
     public int save(ArticlePO articlePO) {

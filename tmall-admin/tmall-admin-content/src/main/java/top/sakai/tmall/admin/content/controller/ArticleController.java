@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.sakai.tmall.admin.content.pojo.param.ArticleAddParam;
+import top.sakai.tmall.admin.content.pojo.vo.ArticleItemListVO;
+import top.sakai.tmall.admin.content.pojo.vo.ArticleVO;
 import top.sakai.tmall.admin.content.service.IArticleService;
 import top.sakai.tmall.common.response.JsonResult;
+
+import java.util.List;
 
 /**
  * @author Sakai
@@ -37,6 +41,20 @@ public class ArticleController {
         articleService.save(articleAddParam);
         log.debug("添加文章返回响应 状态码:{} 状态信息:{}", JsonResult.ok().getCode(), JsonResult.ok().getMessage());
         return JsonResult.ok();
-
     }
+
+    @ApiOperation("文章列表")
+    @PostMapping("/list")
+    public JsonResult listArticle(Long categoryId) {
+        List<ArticleItemListVO> articleItemListVOS = articleService.list(categoryId);
+        return JsonResult.ok(articleItemListVOS);
+    }
+
+    @ApiOperation("文章详情")
+    @PostMapping("/detail")
+    public JsonResult detail(Long articleId) {
+        ArticleVO article = articleService.detail(articleId);
+        return JsonResult.ok(article);
+    }
+
 }

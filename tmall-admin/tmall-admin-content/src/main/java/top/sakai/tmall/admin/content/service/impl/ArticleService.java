@@ -10,7 +10,12 @@ import top.sakai.tmall.admin.content.pojo.param.ArticleAddParam;
 import top.sakai.tmall.admin.content.pojo.po.ArticleDetailPO;
 import top.sakai.tmall.admin.content.pojo.po.ArticlePO;
 import top.sakai.tmall.admin.content.pojo.po.CategoryPO;
+import top.sakai.tmall.admin.content.pojo.vo.ArticleItemListVO;
+import top.sakai.tmall.admin.content.pojo.vo.ArticleVO;
 import top.sakai.tmall.admin.content.service.IArticleService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -59,5 +64,43 @@ public class ArticleService implements IArticleService {
         } else {
             throw new RuntimeException("文章标题已存在");
         }
+    }
+
+    @Override
+    public List<ArticleItemListVO> list(Long categoryId) {
+        List<ArticlePO> articlePOS = articleRepository.selectByCategoryId(categoryId);
+        return articleListPO2ListVO(articlePOS);
+    }
+
+    @Override
+    public ArticleVO detail(Long articleId) {
+        ArticlePO articlePO = articleRepository.basic(articleId);
+        if (articlePO == null) {
+            throw new RuntimeException("文章不存在");
+        }
+
+        ArticleDetailPO articleDetailPO = articleRepository.detail(articleId);
+        if (articleDetailPO == null) {
+            throw new RuntimeException("文章不存在");
+        }
+        ArticleVO articleVO = new ArticleVO();
+        BeanUtils.copyProperties(articleDetailPO, articleVO);
+        BeanUtils.copyProperties(articlePO, articleVO);
+        return articleVO;
+    }
+
+
+    private ArticleItemListVO articlePO2VO(ArticlePO po) {
+        ArticleItemListVO vo = new ArticleItemListVO();
+        BeanUtils.copyProperties(po, vo);
+        return vo;
+    }
+
+    private List<ArticleItemListVO> articleListPO2ListVO(List<ArticlePO> pos) {
+        List<ArticleItemListVO> vos = new ArrayList<>();
+        pos.forEach(o -> {
+            vos.add(articlePO2VO(o));
+        });
+        return vos;
     }
 }
