@@ -58,7 +58,7 @@ public class MallCategoryService implements IMallCategoryService {
 
     @Override
     public List<MallCategoryTreeVO> showTree() {
-        List<MallCategoryPO> mallCategoryPOS = mallCategoryRepository.getAll();
+        List<MallCategoryPO> mallCategoryPOS = mallCategoryRepository.getAll(); // todo 数据太大怎么办
         List<MallCategoryTreeVO> mallCategoryTreeVOS = buildTree(mallCategoryPOS, 0L);
         return mallCategoryTreeVOS;
     }

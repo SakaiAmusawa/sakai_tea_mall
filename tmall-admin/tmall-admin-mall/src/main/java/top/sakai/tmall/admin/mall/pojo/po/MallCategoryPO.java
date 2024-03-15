@@ -1,8 +1,6 @@
 package top.sakai.tmall.admin.mall.pojo.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +29,8 @@ public class MallCategoryPO {
      * 0 NO 1 YES
      */
     Integer isParent;
+    @TableField(fill = FieldFill.INSERT)
     LocalDateTime gmtCreate;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     LocalDateTime gmtModified;
 }
