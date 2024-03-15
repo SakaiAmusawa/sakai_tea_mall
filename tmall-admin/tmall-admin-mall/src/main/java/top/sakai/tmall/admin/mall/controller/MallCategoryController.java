@@ -5,13 +5,13 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.sakai.tmall.admin.mall.pojo.param.CategoryAddParam;
+import top.sakai.tmall.admin.mall.pojo.po.MallCategoryTreeVO;
 import top.sakai.tmall.admin.mall.service.IMallCategoryService;
 import top.sakai.tmall.common.response.JsonResult;
+
+import java.util.List;
 
 @Slf4j
 @Api(tags = "商城类别管理")
@@ -30,4 +30,10 @@ public class MallCategoryController {
         return JsonResult.ok();
     }
 
+    @ApiOperation("类别树")
+    @GetMapping("tree")
+    public JsonResult treeCategory() {
+        List<MallCategoryTreeVO> list = mallCategoryService.showTree();
+        return JsonResult.ok(list);
+    }
 }

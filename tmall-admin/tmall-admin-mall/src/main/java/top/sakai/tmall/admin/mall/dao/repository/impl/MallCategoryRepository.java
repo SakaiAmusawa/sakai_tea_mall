@@ -7,6 +7,8 @@ import top.sakai.tmall.admin.mall.dao.mapper.MallCategoryMapper;
 import top.sakai.tmall.admin.mall.dao.repository.IMallCategoryRepository;
 import top.sakai.tmall.admin.mall.pojo.po.MallCategoryPO;
 
+import java.util.List;
+
 @Repository
 public class MallCategoryRepository implements IMallCategoryRepository {
 
@@ -33,6 +35,11 @@ public class MallCategoryRepository implements IMallCategoryRepository {
     @Override
     public void updateCategoryById(MallCategoryPO update) {
         mallCategoryMapper.updateById(update);
+    }
+
+    @Override
+    public List<MallCategoryPO> getAll() {
+        return mallCategoryMapper.selectList(null);
     }
 
 

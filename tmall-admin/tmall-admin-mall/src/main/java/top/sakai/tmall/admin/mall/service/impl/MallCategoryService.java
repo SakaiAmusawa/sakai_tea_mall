@@ -1,19 +1,24 @@
 package top.sakai.tmall.admin.mall.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.sakai.tmall.admin.mall.dao.repository.IMallCategoryRepository;
 import top.sakai.tmall.admin.mall.pojo.param.CategoryAddParam;
 import top.sakai.tmall.admin.mall.pojo.po.MallCategoryPO;
+import top.sakai.tmall.admin.mall.pojo.po.MallCategoryTreeVO;
 import top.sakai.tmall.admin.mall.service.IMallCategoryService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
+@Slf4j
 public class MallCategoryService implements IMallCategoryService {
 
     @Autowired
     private IMallCategoryRepository mallCategoryRepository;
-
 
     @Override
     public void save(CategoryAddParam categoryAddParam) {
@@ -49,5 +54,49 @@ public class MallCategoryService implements IMallCategoryService {
                 }
             }
         }
+    }
+
+    @Override
+    public List<MallCategoryTreeVO> showTree() {
+        List<MallCategoryPO> mallCategoryPOS = mallCategoryRepository.getAll();
+        List<MallCategoryTreeVO> mallCategoryTreeVOS = buildTree(mallCategoryPOS, 0L);
+        return mallCategoryTreeVOS;
+    }
+
+    public List<MallCategoryTreeVO> buildTree(List<MallCategoryPO> categories, Long parentId) {
+        List<MallCategoryTreeVO> treeNodes = new ArrayList<>();
+        for (MallCategoryPO category : categories) {
+            if (category.getParentId().equals(parentId)) {
+                MallCategoryTreeVO node = new MallCategoryTreeVO();
+                node.setId(category.getId());
+                node.setName(category.getName());
+                node.setChildren(buildTree(categories, category.getId()));
+                treeNodes.add(node);
+            }
+        }
+        return treeNodes;
+    }
+
+
+    public List<MallCategoryTreeVO> mockData() {
+        MallCategoryTreeVO vo = new MallCategoryTreeVO();
+        vo.setId(1L);
+        vo.setName("北京");
+
+
+        MallCategoryTreeVO vo1 = new MallCategoryTreeVO();
+        vo1.setId(2L);
+        vo1.setName("海淀");
+
+        List<MallCategoryTreeVO> children = new ArrayList<>();
+        children.add(vo1);
+
+        vo.setChildren(children);
+
+
+        List result = new ArrayList();
+        result.add(vo);
+
+        return result;
     }
 }
