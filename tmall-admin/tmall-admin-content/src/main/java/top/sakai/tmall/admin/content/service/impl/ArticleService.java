@@ -67,8 +67,8 @@ public class ArticleService implements IArticleService {
     }
 
     @Override
-    public List<ArticleItemListVO> list(Long categoryId) {
-        List<ArticlePO> articlePOS = articleRepository.selectByCategoryId(categoryId);
+    public List<ArticleItemListVO> list(Long categoryId, Integer pageNum, Integer pageSize) {
+        List<ArticlePO> articlePOS = articleRepository.selectByCategoryId(categoryId, pageNum, pageSize);
         return articleListPO2ListVO(articlePOS);
     }
 

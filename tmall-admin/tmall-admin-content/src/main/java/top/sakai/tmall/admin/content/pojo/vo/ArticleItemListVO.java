@@ -19,6 +19,6 @@ public class ArticleItemListVO {
     String imgUrl;
 
     @ApiModelProperty("文章摘要")
-    String digest;
+    String brief;
 
 }

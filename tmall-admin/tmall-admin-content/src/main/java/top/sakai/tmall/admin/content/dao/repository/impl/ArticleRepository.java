@@ -1,9 +1,11 @@
 package top.sakai.tmall.admin.content.dao.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 import top.sakai.tmall.admin.content.dao.mapper.ArticleDetailMapper;
 import top.sakai.tmall.admin.content.dao.mapper.ArticleMapper;
 import top.sakai.tmall.admin.content.dao.repository.IArticleRepository;
@@ -37,9 +39,10 @@ public class ArticleRepository implements IArticleRepository {
     }
 
     @Override
-    public List<ArticlePO> selectByCategoryId(Long categoryId) {
+    public List<ArticlePO> selectByCategoryId(@RequestParam("categoryId") Long categoryId, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("category_id",categoryId);
+        queryWrapper.eq("category_id", categoryId);
+        PageHelper.startPage(pageNum, pageSize);
         return articleMapper.selectList(queryWrapper);
     }
 

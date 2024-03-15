@@ -13,7 +13,7 @@ public interface IArticleRepository {
 
     int saveDetail(ArticleDetailPO articleDetailPO);
 
-    List<ArticlePO> selectByCategoryId(Long categoryId);
+    List<ArticlePO> selectByCategoryId(Long categoryId, Integer pageNum, Integer pageSize);
 
     ArticlePO basic(Long articleId);
 

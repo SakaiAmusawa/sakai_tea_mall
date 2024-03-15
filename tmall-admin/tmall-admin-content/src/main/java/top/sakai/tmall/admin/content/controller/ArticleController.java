@@ -45,8 +45,8 @@ public class ArticleController {
 
     @ApiOperation("文章列表")
     @PostMapping("/list")
-    public JsonResult listArticle(Long categoryId) {
-        List<ArticleItemListVO> articleItemListVOS = articleService.list(categoryId);
+    public JsonResult listArticle(Long categoryId, Integer pageNum, Integer pageSize) {
+        List<ArticleItemListVO> articleItemListVOS = articleService.list(categoryId, pageNum, pageSize);
         return JsonResult.ok(articleItemListVOS);
     }
 
