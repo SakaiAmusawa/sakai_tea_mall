@@ -42,5 +42,19 @@ public class MallCategoryRepository implements IMallCategoryRepository {
         return mallCategoryMapper.selectList(null);
     }
 
+    @Override
+    public List<MallCategoryPO> getTopCategory() {
+        return getChildrenCategoryByParentId(0L);
+    }
 
+    @Override
+    public List<MallCategoryPO> getChildrenCategory(Long parentId) {
+        return getChildrenCategoryByParentId(parentId);
+    }
+
+    private List<MallCategoryPO> getChildrenCategoryByParentId(Long parentId) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("parent_id",parentId);
+        return mallCategoryMapper.selectList(queryWrapper);
+    }
 }

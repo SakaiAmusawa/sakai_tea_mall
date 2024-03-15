@@ -14,4 +14,8 @@ public interface IMallCategoryRepository {
     void updateCategoryById(MallCategoryPO update);
 
     List<MallCategoryPO> getAll();
+
+    List<MallCategoryPO> getTopCategory();
+
+    List<MallCategoryPO> getChildrenCategory(Long parentId);
 }

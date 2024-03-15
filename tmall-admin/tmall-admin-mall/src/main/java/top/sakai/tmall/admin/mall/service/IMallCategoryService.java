@@ -10,4 +10,8 @@ public interface IMallCategoryService {
     void save(CategoryAddParam categoryAddParam);
 
     List<MallCategoryTreeVO> showTree();
+
+    List<MallCategoryTreeVO> treeTopCategory();
+
+    List<MallCategoryTreeVO> treeChildrenCategory(Long parentId);
 }

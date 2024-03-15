@@ -19,6 +19,7 @@ public class MallCategoryService implements IMallCategoryService {
 
     @Autowired
     private IMallCategoryRepository mallCategoryRepository;
+
     @Override
     public void save(CategoryAddParam categoryAddParam) {
         String name = categoryAddParam.getName();
@@ -60,22 +61,21 @@ public class MallCategoryService implements IMallCategoryService {
         List<MallCategoryPO> mallCategoryPOS = mallCategoryRepository.getAll(); // todo 数据太大怎么办
         log.debug("查询所有类别数据:{}", mallCategoryPOS);
         List<MallCategoryTreeVO> mallCategoryTreeVOS = buildTree(mallCategoryPOS, 0L);
-       /* List<MallCategoryTreeVO> topCategory = topCategory(mallCategoryPOS, 0L);
-        return topCategory;*/
         return mallCategoryTreeVOS;
     }
 
-/*    public List<MallCategoryTreeVO> topCategory(List<MallCategoryPO> categories, Long parentId) {
-        List<MallCategoryTreeVO> topCategory = new ArrayList<>();
-        categories.forEach(o -> {
-            if (o.getParentId() == parentId) {
-                MallCategoryTreeVO mallCategoryTreeVO = new MallCategoryTreeVO();
-                BeanUtils.copyProperties(o, mallCategoryTreeVO);
-                topCategory.add(mallCategoryTreeVO);
-            }
-        });
-        return topCategory;
-    }*/
+    @Override
+    public List<MallCategoryTreeVO> treeTopCategory() {
+        List<MallCategoryPO> top = mallCategoryRepository.getTopCategory();
+        log.debug("查询所有顶级类别数据:{}",top);
+        return categoryPOS2VO2(top);
+    }
+
+    @Override
+    public List<MallCategoryTreeVO> treeChildrenCategory(Long parentId) {
+        List<MallCategoryPO> children = mallCategoryRepository.getChildrenCategory(parentId);
+        return categoryPOS2VO2(children);
+    }
 
     public List<MallCategoryTreeVO> buildTree(List<MallCategoryPO> categories, Long parentId) {
         List<MallCategoryTreeVO> treeNodes = new ArrayList<>();
@@ -92,26 +92,19 @@ public class MallCategoryService implements IMallCategoryService {
         return treeNodes;
     }
 
-
-    public List<MallCategoryTreeVO> mockData() {
+    private MallCategoryTreeVO categoryPO2VO(MallCategoryPO po) {
         MallCategoryTreeVO vo = new MallCategoryTreeVO();
-        vo.setId(1L);
-        vo.setName("北京");
+        BeanUtils.copyProperties(po, vo);
+        //vo.setName(po.getName());
+        return vo;
+    }
 
-
-        MallCategoryTreeVO vo1 = new MallCategoryTreeVO();
-        vo1.setId(2L);
-        vo1.setName("海淀");
-
-        List<MallCategoryTreeVO> children = new ArrayList<>();
-        children.add(vo1);
-
-        vo.setChildren(children);
-
-
-        List result = new ArrayList();
-        result.add(vo);
-
+    private List<MallCategoryTreeVO> categoryPOS2VO2(List<MallCategoryPO> pos) {
+        List<MallCategoryTreeVO> result = new ArrayList<>();
+        pos.forEach(po -> {
+            //转换为vo
+            result.add(categoryPO2VO(po));
+        });
         return result;
     }
 }
