@@ -9,6 +9,8 @@ import top.sakai.tmall.admin.mall.dao.repository.IGoodsRepository;
 import top.sakai.tmall.admin.mall.pojo.po.GoodsDetailPO;
 import top.sakai.tmall.admin.mall.pojo.po.GoodsPO;
 
+import java.util.List;
+
 @Repository
 public class GoodsRepository implements IGoodsRepository {
 
@@ -33,5 +35,13 @@ public class GoodsRepository implements IGoodsRepository {
     @Override
     public Integer saveDetail(GoodsDetailPO goodsDetailPO) {
         return goodsDetailMapper.insert(goodsDetailPO);
+    }
+
+    @Override
+    public List<GoodsPO> selectGoodsByCategoryId(Long categoryId) {
+        QueryWrapper qw = new QueryWrapper();
+        qw.eq("category_id", categoryId);
+        return goodsMapper.selectList(qw);
+
     }
 }

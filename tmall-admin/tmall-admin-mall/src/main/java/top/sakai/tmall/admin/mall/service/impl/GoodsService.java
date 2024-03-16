@@ -10,7 +10,11 @@ import top.sakai.tmall.admin.mall.pojo.param.GoodsAddParam;
 import top.sakai.tmall.admin.mall.pojo.po.GoodsDetailPO;
 import top.sakai.tmall.admin.mall.pojo.po.GoodsPO;
 import top.sakai.tmall.admin.mall.pojo.po.MallCategoryPO;
+import top.sakai.tmall.admin.mall.pojo.vo.GoodsVO;
 import top.sakai.tmall.admin.mall.service.IGoodsService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -21,6 +25,19 @@ public class GoodsService implements IGoodsService {
     @Autowired
     private IMallCategoryRepository mallCategoryRepository;
 
+    public GoodsVO po2vo(GoodsPO goodsPO) {
+        GoodsVO goodsVO = new GoodsVO();
+        BeanUtils.copyProperties(goodsPO, goodsVO);
+        return goodsVO;
+    }
+
+    public List<GoodsVO> pos2vos(List<GoodsPO> goodsPOList) {
+        List<GoodsVO> result = new ArrayList<>();
+        goodsPOList.forEach(o -> {
+            result.add(po2vo(o));
+        });
+        return result;
+    }
 
     @Override
     public void add(GoodsAddParam goodsAddParam) {
@@ -58,5 +75,16 @@ public class GoodsService implements IGoodsService {
         if (detailExistence != 1) {
             throw new RuntimeException("插入失败");
         }
+    }
+
+    @Override
+    public List<GoodsVO> showGoodsByCategoryId(Long categoryId) {
+        MallCategoryPO category = mallCategoryRepository.getCategoryById(categoryId);
+        if (category == null) {
+            throw new RuntimeException("类别不存在");
+        }
+        List<GoodsPO> goodsPOList = goodsRepository.selectGoodsByCategoryId(categoryId);
+        log.debug("查询结果检查：{}", goodsPOList);
+        return pos2vos(goodsPOList);
     }
 }
