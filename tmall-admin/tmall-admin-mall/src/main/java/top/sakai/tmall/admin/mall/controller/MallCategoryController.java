@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.sakai.tmall.admin.mall.pojo.param.CategoryAddParam;
-import top.sakai.tmall.admin.mall.pojo.po.MallCategoryTreeVO;
+import top.sakai.tmall.admin.mall.pojo.vo.MallCategoryTreeVO;
 import top.sakai.tmall.admin.mall.service.IMallCategoryService;
 import top.sakai.tmall.common.response.JsonResult;
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import top.sakai.tmall.admin.mall.dao.repository.IMallCategoryRepository;
 import top.sakai.tmall.admin.mall.pojo.param.CategoryAddParam;
 import top.sakai.tmall.admin.mall.pojo.po.MallCategoryPO;
-import top.sakai.tmall.admin.mall.pojo.po.MallCategoryTreeVO;
+import top.sakai.tmall.admin.mall.pojo.vo.MallCategoryTreeVO;
 import top.sakai.tmall.admin.mall.service.IMallCategoryService;
 
 import java.util.ArrayList;

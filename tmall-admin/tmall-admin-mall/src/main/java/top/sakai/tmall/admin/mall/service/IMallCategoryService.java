@@ -1,7 +1,7 @@
 package top.sakai.tmall.admin.mall.service;
 
 import top.sakai.tmall.admin.mall.pojo.param.CategoryAddParam;
-import top.sakai.tmall.admin.mall.pojo.po.MallCategoryTreeVO;
+import top.sakai.tmall.admin.mall.pojo.vo.MallCategoryTreeVO;
 
 import java.util.List;
 

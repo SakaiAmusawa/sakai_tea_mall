@@ -1,4 +1,4 @@
-package top.sakai.tmall.admin.mall.pojo.po;
+package top.sakai.tmall.admin.mall.pojo.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
