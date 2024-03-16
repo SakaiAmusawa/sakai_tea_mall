@@ -10,6 +10,7 @@ import top.sakai.tmall.admin.mall.pojo.param.GoodsAddParam;
 import top.sakai.tmall.admin.mall.pojo.po.GoodsDetailPO;
 import top.sakai.tmall.admin.mall.pojo.po.GoodsPO;
 import top.sakai.tmall.admin.mall.pojo.po.MallCategoryPO;
+import top.sakai.tmall.admin.mall.pojo.vo.GoodsDetailVO;
 import top.sakai.tmall.admin.mall.pojo.vo.GoodsVO;
 import top.sakai.tmall.admin.mall.service.IGoodsService;
 
@@ -86,5 +87,20 @@ public class GoodsService implements IGoodsService {
         List<GoodsPO> goodsPOList = goodsRepository.selectGoodsByCategoryId(categoryId);
         log.debug("查询结果检查：{}", goodsPOList);
         return pos2vos(goodsPOList);
+    }
+
+    @Override
+    public GoodsDetailVO showGoodsDetailById(Long id) {
+        GoodsDetailPO goodsDetailPO = goodsRepository.selectGoodsDetailByGoodsId(id);
+        if (goodsDetailPO == null) {
+            throw new RuntimeException("查无此文章");
+        }
+        log.debug("返回结果:{}", goodsDetailPO);
+        GoodsPO goodsPO = goodsRepository.selectGoodsById(id);
+        log.debug("返回结果:{}", goodsPO);
+        GoodsDetailVO goodsDetailVO = new GoodsDetailVO();
+        BeanUtils.copyProperties(goodsDetailPO, goodsDetailVO);
+        BeanUtils.copyProperties(goodsPO, goodsDetailVO);
+        return goodsDetailVO;
     }
 }

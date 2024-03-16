@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.sakai.tmall.admin.mall.pojo.param.GoodsAddParam;
+import top.sakai.tmall.admin.mall.pojo.vo.GoodsDetailVO;
 import top.sakai.tmall.admin.mall.pojo.vo.GoodsVO;
 import top.sakai.tmall.admin.mall.service.IGoodsService;
 import top.sakai.tmall.common.response.JsonResult;
@@ -36,6 +37,13 @@ public class GoodsController {
         log.debug("入参检查：{}", categoryId);
         List<GoodsVO> goodsList = goodsService.showGoodsByCategoryId(categoryId);
         return JsonResult.ok(goodsList);
+    }
+
+    @ApiOperation("商品详情")
+    @GetMapping("detail/{id}")
+    public JsonResult showGoodsDetailById(@PathVariable Long id) {
+        GoodsDetailVO goodsDetailVO = goodsService.showGoodsDetailById(id);
+        return JsonResult.ok(goodsDetailVO);
     }
 
 }

@@ -2,6 +2,7 @@ package top.sakai.tmall.admin.mall.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import top.sakai.tmall.admin.mall.pojo.param.GoodsAddParam;
+import top.sakai.tmall.admin.mall.pojo.vo.GoodsDetailVO;
 import top.sakai.tmall.admin.mall.pojo.vo.GoodsVO;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface IGoodsService {
     void add(GoodsAddParam goodsAddParam);
 
     List<GoodsVO> showGoodsByCategoryId(Long categoryId);
+
+    GoodsDetailVO showGoodsDetailById(Long id);
 }

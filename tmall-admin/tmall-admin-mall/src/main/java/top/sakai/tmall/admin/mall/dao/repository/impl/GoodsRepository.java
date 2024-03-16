@@ -44,4 +44,18 @@ public class GoodsRepository implements IGoodsRepository {
         return goodsMapper.selectList(qw);
 
     }
+
+    @Override
+    public GoodsDetailPO selectGoodsDetailByGoodsId(Long id) {
+        QueryWrapper qw = new QueryWrapper();
+        qw.eq("goods_id", id);
+        return goodsDetailMapper.selectOne(qw);
+
+    }
+
+    @Override
+    public GoodsPO selectGoodsById(Long id) {
+        return goodsMapper.selectById(id);
+    }
+
 }

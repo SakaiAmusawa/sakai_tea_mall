@@ -2,6 +2,7 @@ package top.sakai.tmall.admin.mall.dao.repository;
 
 import top.sakai.tmall.admin.mall.pojo.po.GoodsDetailPO;
 import top.sakai.tmall.admin.mall.pojo.po.GoodsPO;
+import top.sakai.tmall.admin.mall.pojo.vo.GoodsDetailVO;
 
 import java.util.List;
 
@@ -13,4 +14,8 @@ public interface IGoodsRepository {
     Integer saveDetail(GoodsDetailPO goodsDetailPO);
 
     List<GoodsPO> selectGoodsByCategoryId(Long categoryId);
+    
+    GoodsDetailPO selectGoodsDetailByGoodsId(Long id);
+
+    GoodsPO selectGoodsById(Long id);
 }
