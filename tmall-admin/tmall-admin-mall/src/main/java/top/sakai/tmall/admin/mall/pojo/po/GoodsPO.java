@@ -16,7 +16,7 @@ public class GoodsPO {
     @TableId(type = IdType.AUTO)
     Long id;
     Long categoryId;
-    String name;
+    String title;
     String brief;
     String categoryName;
     BigDecimal salePrice;
