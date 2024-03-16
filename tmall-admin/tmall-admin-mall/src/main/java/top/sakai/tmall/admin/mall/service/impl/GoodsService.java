@@ -91,6 +91,8 @@ public class GoodsService implements IGoodsService {
 
     @Override
     public GoodsDetailVO showGoodsDetailById(Long id) {
+        // todo 输入没有的文章ID时返回的错误不符合预期：throw new RuntimeException("查无此文章");
+        //2024年03月16日 14:26:05 解决，原因：未重启！！！
         GoodsDetailPO goodsDetailPO = goodsRepository.selectGoodsDetailByGoodsId(id);
         if (goodsDetailPO == null) {
             throw new RuntimeException("查无此文章");
