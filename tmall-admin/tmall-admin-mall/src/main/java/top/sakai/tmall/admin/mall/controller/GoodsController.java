@@ -19,12 +19,8 @@ import top.sakai.tmall.common.response.JsonResult;
 @RequestMapping("mall/goods/")
 public class GoodsController {
 
-    private IGoodsService goodsService;
-
     @Autowired
-    public void setGoodsService(IGoodsService goodsService) {
-        this.goodsService = goodsService;
-    }
+    private IGoodsService goodsService;
 
     @ApiOperation("添加商品")
     @PostMapping("add")

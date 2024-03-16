@@ -15,18 +15,10 @@ import top.sakai.tmall.admin.mall.service.IGoodsService;
 @Slf4j
 public class GoodsService implements IGoodsService {
 
+    @Autowired
     private IGoodsRepository goodsRepository;
+    @Autowired
     private IMallCategoryRepository mallCategoryRepository;
-
-    @Autowired
-    public void setGoodsRepository(IGoodsRepository goodsRepository) {
-        this.goodsRepository = goodsRepository;
-    }
-
-    @Autowired
-    public void setCategoryRepository(IMallCategoryRepository mallCategoryRepository) {
-        this.mallCategoryRepository = mallCategoryRepository;
-    }
 
 
     @Override
