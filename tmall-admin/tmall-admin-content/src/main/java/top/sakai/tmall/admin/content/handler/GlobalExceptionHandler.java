@@ -18,6 +18,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public JsonResult handlerServiceException(ServiceException e) {
         String message = e.getMessage();
+        log.debug(message);
         return JsonResult.fail(message);
     }
 
