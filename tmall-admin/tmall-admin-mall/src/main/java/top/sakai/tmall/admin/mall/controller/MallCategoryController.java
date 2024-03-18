@@ -39,18 +39,19 @@ public class MallCategoryController {
 
     @ApiOperation("类别树-顶级类别")
     @GetMapping("tree/top")
-    public JsonResult treeTopCategory(){
+    public JsonResult treeTopCategory() {
         List<MallCategoryTreeVO> tree = mallCategoryService.treeTopCategory();
         return JsonResult.ok(tree);
     }
 
     /**
      * 延迟加载策略
-     * @return
+     *
+     * @return 子类别树
      */
     @ApiOperation("类别树-子级类别")
     @GetMapping("tree/children/{parentId}")
-    public JsonResult treeChildrenCategory(@PathVariable Long parentId){
+    public JsonResult treeChildrenCategory(@PathVariable Long parentId) {
         List<MallCategoryTreeVO> tree = mallCategoryService.treeChildrenCategory(parentId);
         return JsonResult.ok(tree);
     }
