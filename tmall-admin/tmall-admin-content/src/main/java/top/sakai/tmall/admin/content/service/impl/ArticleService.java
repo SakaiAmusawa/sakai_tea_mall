@@ -13,6 +13,7 @@ import top.sakai.tmall.admin.content.pojo.po.CategoryPO;
 import top.sakai.tmall.admin.content.pojo.vo.ArticleItemListVO;
 import top.sakai.tmall.admin.content.pojo.vo.ArticleVO;
 import top.sakai.tmall.admin.content.service.IArticleService;
+import top.sakai.tmall.common.pojo.PageData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,9 +68,14 @@ public class ArticleService implements IArticleService {
     }
 
     @Override
-    public List<ArticleItemListVO> list(Long categoryId, Integer pageNum, Integer pageSize) {
-        List<ArticlePO> articlePOS = articleRepository.selectByCategoryId(categoryId, pageNum, pageSize);
-        return articleListPO2ListVO(articlePOS);
+    // todo 待解决分页功能的逻辑，搞懂下列的代码
+    public PageData<ArticleItemListVO> list(Long categoryId, Integer pageNum, Integer pageSize) {
+        PageData<ArticlePO> articlePOS = articleRepository.selectByCategoryId(categoryId, pageNum, pageSize);
+        List<ArticleItemListVO> articleItemListVOS = articleListPO2ListVO(articlePOS.getList());
+        PageData<ArticleItemListVO> result = new PageData<>();
+        BeanUtils.copyProperties(articlePOS, result);
+        result.setList(articleItemListVOS);
+        return result;
     }
 
     @Override

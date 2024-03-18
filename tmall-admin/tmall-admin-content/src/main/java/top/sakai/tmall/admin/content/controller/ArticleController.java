@@ -5,14 +5,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.sakai.tmall.admin.content.pojo.param.ArticleAddParam;
 import top.sakai.tmall.admin.content.pojo.vo.ArticleItemListVO;
 import top.sakai.tmall.admin.content.pojo.vo.ArticleVO;
 import top.sakai.tmall.admin.content.service.IArticleService;
+import top.sakai.tmall.common.pojo.PageData;
 import top.sakai.tmall.common.response.JsonResult;
 
 import java.util.List;
@@ -45,14 +43,14 @@ public class ArticleController {
 
     @ApiOperation("文章列表")
     @PostMapping("/list")
-    public JsonResult listArticle(Long categoryId, Integer pageNum, Integer pageSize) {
-        List<ArticleItemListVO> articleItemListVOS = articleService.list(categoryId, pageNum, pageSize);
+    public JsonResult listArticle(@RequestParam Long categoryId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        PageData<ArticleItemListVO> articleItemListVOS = articleService.list(categoryId, pageNum, pageSize);
         return JsonResult.ok(articleItemListVOS);
     }
 
     @ApiOperation("文章详情")
     @PostMapping("/detail")
-    public JsonResult detail(Long articleId) {
+    public JsonResult detail(@RequestParam Long articleId) {
         ArticleVO article = articleService.detail(articleId);
         return JsonResult.ok(article);
     }

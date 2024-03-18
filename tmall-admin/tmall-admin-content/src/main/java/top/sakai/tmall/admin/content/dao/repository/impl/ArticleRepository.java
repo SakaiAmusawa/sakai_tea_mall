@@ -2,7 +2,9 @@ package top.sakai.tmall.admin.content.dao.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +13,7 @@ import top.sakai.tmall.admin.content.dao.mapper.ArticleMapper;
 import top.sakai.tmall.admin.content.dao.repository.IArticleRepository;
 import top.sakai.tmall.admin.content.pojo.po.ArticleDetailPO;
 import top.sakai.tmall.admin.content.pojo.po.ArticlePO;
+import top.sakai.tmall.common.pojo.PageData;
 
 import java.util.List;
 
@@ -39,12 +42,17 @@ public class ArticleRepository implements IArticleRepository {
     }
 
     @Override
-    public List<ArticlePO> selectByCategoryId(@RequestParam("categoryId") Long categoryId, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+    public PageData<ArticlePO> selectByCategoryId(@RequestParam("categoryId") Long categoryId, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("category_id", categoryId);
         //拦截SQL语句，实现分页功能
         PageHelper.startPage(pageNum, pageSize);
-        return articleMapper.selectList(queryWrapper);
+        List list = articleMapper.selectList(queryWrapper);
+        PageInfo<ArticlePO> pageInfo = new PageInfo<>(list);
+        log.debug("分页查询返回结果 {}", pageInfo);
+        PageData<ArticlePO> pageData = new PageData();
+        BeanUtils.copyProperties(pageInfo, pageData);
+        return pageData;
     }
 
     @Override
