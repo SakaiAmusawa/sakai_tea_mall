@@ -31,7 +31,7 @@ public class CategoryService implements ICategoryService {
             categoryRepository.save(newCategoryPO);
         } else {
             //  2.1.存在 抛出异常
-            throw new ServiceException(StatusCode.FAIL.getCode(), "名称已存在");
+            throw new ServiceException(StatusCode.FAIL);
         }
     }
 

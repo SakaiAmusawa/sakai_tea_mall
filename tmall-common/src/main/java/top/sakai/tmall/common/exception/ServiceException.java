@@ -1,5 +1,7 @@
 package top.sakai.tmall.common.exception;
 
+import top.sakai.tmall.common.response.StatusCode;
+
 /**
  * 自定义业务异常处理
  *
@@ -7,11 +9,10 @@ package top.sakai.tmall.common.exception;
  */
 public class ServiceException extends RuntimeException {
 
-    private final Integer serviceCode;
+    private final StatusCode statusCode;
 
-    public ServiceException(Integer serviceCode, String message) {
-        super(message);
-        this.serviceCode = serviceCode;
+    public ServiceException(StatusCode statusCode) {
+        this.statusCode = statusCode;
     }
 
 }
