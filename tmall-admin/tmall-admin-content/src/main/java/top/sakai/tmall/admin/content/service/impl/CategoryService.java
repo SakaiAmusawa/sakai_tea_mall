@@ -5,10 +5,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.sakai.tmall.admin.content.dao.repository.ICategoryRepository;
-import top.sakai.tmall.admin.content.handler.ServiceException;
 import top.sakai.tmall.admin.content.pojo.param.CategoryAddParam;
 import top.sakai.tmall.admin.content.pojo.po.CategoryPO;
 import top.sakai.tmall.admin.content.service.ICategoryService;
+import top.sakai.tmall.common.exception.ServiceException;
 import top.sakai.tmall.common.response.StatusCode;
 
 @Service
@@ -31,7 +31,7 @@ public class CategoryService implements ICategoryService {
             categoryRepository.save(newCategoryPO);
         } else {
             //  2.1.存在 抛出异常
-            throw new ServiceException(StatusCode.FAIL);
+            throw new ServiceException(StatusCode.FAIL.getCode(), "名称已存在");
         }
     }
 

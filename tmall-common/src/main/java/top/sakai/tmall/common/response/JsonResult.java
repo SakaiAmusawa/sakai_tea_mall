@@ -25,6 +25,10 @@ public class JsonResult implements Serializable {
         this.message = statusCode.getMessage();
     }
 
+    public JsonResult() {
+
+    }
+
     public static JsonResult ok(Object data) {
         return new JsonResult(StatusCode.SUCCESS, data);
     }
@@ -35,6 +39,13 @@ public class JsonResult implements Serializable {
 
     public static JsonResult fail() {
         return new JsonResult(StatusCode.FAIL);
+
     }
 
+    public static JsonResult fail(String message) {
+        JsonResult jsonResult = new JsonResult();
+        jsonResult.setCode(2000);
+        jsonResult.setMessage(message);
+        return jsonResult;
+    }
 }
