@@ -25,7 +25,7 @@ public class MallCategoryController {
     @ApiOperation(value = "添加类别")
     @PostMapping("add")
     public JsonResult addCategory(@Validated @RequestBody CategoryAddParam categoryAddParam) {
-        log.debug("添加类别的入参检查 名称:{},父级ID:{},是否启用:{},是否展示:{}", categoryAddParam.getName(), categoryAddParam.getParentId(), categoryAddParam.getEnable(), categoryAddParam.getIsDisplay());
+        log.debug("添加类别的入参检查 {}", categoryAddParam);
         mallCategoryService.save(categoryAddParam);
         return JsonResult.ok();
     }
