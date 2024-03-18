@@ -24,6 +24,7 @@
         <module>tmall-admin</module>
         <module>tmall-front</module>
         <module>tmall-common</module>
+        <module>tmall-passport</module>
     </modules>
 
     <!--  属性  -->
@@ -31,6 +32,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
     <!--  依赖  -->
@@ -49,6 +51,11 @@
                 <groupId>top.sakai</groupId>
                 <artifactId>tmall-common</artifactId>
                 <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
