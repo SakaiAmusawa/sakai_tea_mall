@@ -37,15 +37,4 @@ public class JsonResult implements Serializable {
         return new JsonResult(StatusCode.SUCCESS);
     }
 
-    public static JsonResult fail() {
-        return new JsonResult(StatusCode.FAIL);
-
-    }
-
-    public static JsonResult fail(String message) {
-        JsonResult jsonResult = new JsonResult();
-        jsonResult.setCode(2000);
-        jsonResult.setMessage(message);
-        return jsonResult;
-    }
 }

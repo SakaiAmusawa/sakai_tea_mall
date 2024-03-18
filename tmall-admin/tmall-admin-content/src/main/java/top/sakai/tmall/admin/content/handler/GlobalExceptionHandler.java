@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     public JsonResult handlerServiceException(ServiceException e) {
         String message = e.getMessage();
         log.debug(message);
-        return JsonResult.fail(message);
+        return new JsonResult();
     }
 
     @ExceptionHandler
@@ -38,8 +38,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public JsonResult handleGlobalExceptionHandler(Throwable throwable) {
         log.debug("出现异常", throwable);
-        String message = "网络错误，请重试...";
-        return JsonResult.fail(message);
+        return new JsonResult(StatusCode.FAIL);
     }
 
 }
