@@ -29,4 +29,17 @@ public class GlobalExceptionHandler {
         return new JsonResult(StatusCode.VALIDATION_FAIL, message);
     }
 
+    /**
+     * 兜底 给用户一个良好的体验（大雾）
+     *
+     * @param throwable
+     * @return
+     */
+    @ExceptionHandler
+    public JsonResult handleGlobalExceptionHandler(Throwable throwable) {
+        log.debug("出现异常", throwable);
+        String message = "网络错误，请重试...";
+        return JsonResult.fail(message);
+    }
+
 }
