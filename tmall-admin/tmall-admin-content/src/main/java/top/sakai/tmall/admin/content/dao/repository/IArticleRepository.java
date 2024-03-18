@@ -2,7 +2,6 @@ package top.sakai.tmall.admin.content.dao.repository;
 
 import top.sakai.tmall.admin.content.pojo.po.ArticleDetailPO;
 import top.sakai.tmall.admin.content.pojo.po.ArticlePO;
-import top.sakai.tmall.admin.content.pojo.vo.ArticleVO;
 
 import java.util.List;
 

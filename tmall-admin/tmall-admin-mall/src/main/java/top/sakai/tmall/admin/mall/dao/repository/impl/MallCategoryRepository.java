@@ -54,7 +54,7 @@ public class MallCategoryRepository implements IMallCategoryRepository {
 
     private List<MallCategoryPO> getChildrenCategoryByParentId(Long parentId) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("parent_id",parentId);
+        queryWrapper.eq("parent_id", parentId);
         return mallCategoryMapper.selectList(queryWrapper);
     }
 }

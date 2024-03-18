@@ -67,7 +67,7 @@ public class MallCategoryService implements IMallCategoryService {
     @Override
     public List<MallCategoryTreeVO> treeTopCategory() {
         List<MallCategoryPO> top = mallCategoryRepository.getTopCategory();
-        log.debug("查询所有顶级类别数据:{}",top);
+        log.debug("查询所有顶级类别数据:{}", top);
         return categoryPOS2VO2(top);
     }
 

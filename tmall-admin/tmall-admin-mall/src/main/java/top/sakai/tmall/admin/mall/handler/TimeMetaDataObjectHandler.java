@@ -16,13 +16,13 @@ public class TimeMetaDataObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
-        this.setFieldValByName(FIELD_CREATE_TIME,now,metaObject);
-        this.setFieldValByName(FIELD_UPDATE_TIME,now,metaObject);
+        this.setFieldValByName(FIELD_CREATE_TIME, now, metaObject);
+        this.setFieldValByName(FIELD_UPDATE_TIME, now, metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
-        this.setFieldValByName(FIELD_UPDATE_TIME,now,metaObject);
+        this.setFieldValByName(FIELD_UPDATE_TIME, now, metaObject);
     }
 }
