@@ -56,6 +56,9 @@ public class GoodsService implements IGoodsService {
         if (category == null) {
             throw new RuntimeException("类别不存在");
         }
+        if (category.getIsParent() != 0) {
+            throw new RuntimeException("请明确分类");
+        }
         //向mall_goods插入数据
         String categoryName = category.getName();
         GoodsPO goodsPO = new GoodsPO();
