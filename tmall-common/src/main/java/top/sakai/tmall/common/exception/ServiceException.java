@@ -1,5 +1,6 @@
 package top.sakai.tmall.common.exception;
 
+import lombok.Getter;
 import top.sakai.tmall.common.response.StatusCode;
 
 /**
@@ -8,7 +9,7 @@ import top.sakai.tmall.common.response.StatusCode;
  * @author sakai
  */
 public class ServiceException extends RuntimeException {
-
+    @Getter
     private final StatusCode statusCode;
 
     public ServiceException(StatusCode statusCode) {

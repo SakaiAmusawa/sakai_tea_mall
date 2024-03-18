@@ -17,9 +17,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public JsonResult handlerServiceException(ServiceException e) {
-        String message = e.getMessage();
-        log.debug(message);
-        return new JsonResult();
+        //1.在后端控制台打印错误日志
+        log.error("RuntimeException:" + e.getStatusCode().getMessage());
+        //2.返回错误状态码
+        return new JsonResult(e.getStatusCode());
     }
 
     @ExceptionHandler
