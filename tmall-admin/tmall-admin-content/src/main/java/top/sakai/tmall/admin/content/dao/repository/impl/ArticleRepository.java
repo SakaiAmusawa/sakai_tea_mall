@@ -42,6 +42,7 @@ public class ArticleRepository implements IArticleRepository {
     public List<ArticlePO> selectByCategoryId(@RequestParam("categoryId") Long categoryId, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("category_id", categoryId);
+        //拦截SQL语句，实现分页功能
         PageHelper.startPage(pageNum, pageSize);
         return articleMapper.selectList(queryWrapper);
     }
