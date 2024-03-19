@@ -4,16 +4,17 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 import top.sakai.tmall.admin.content.pojo.param.ArticleAddParam;
 import top.sakai.tmall.admin.content.pojo.vo.ArticleItemListVO;
 import top.sakai.tmall.admin.content.pojo.vo.ArticleVO;
 import top.sakai.tmall.admin.content.service.IArticleService;
+import top.sakai.tmall.common.pojo.CurrentUser;
 import top.sakai.tmall.common.pojo.PageData;
 import top.sakai.tmall.common.response.JsonResult;
-
-import java.util.List;
 
 /**
  * @author Sakai
@@ -54,5 +55,12 @@ public class ArticleController {
         ArticleVO article = articleService.detail(articleId);
         return JsonResult.ok(article);
     }
+
+    @GetMapping("/current/user")
+    @ApiOperation("识别当事人")
+    public String principal(@ApiIgnore @AuthenticationPrincipal CurrentUser user) {
+        return "成功处理请求：需要通过认证，且识别当事人：" + user;
+    }
+
 
 }

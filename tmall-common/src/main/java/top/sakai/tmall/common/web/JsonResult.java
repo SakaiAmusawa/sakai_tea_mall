@@ -65,5 +65,16 @@ public class JsonResult implements Serializable {
         return jsonResult;
     }
 
+    /**
+     * 异常返回结果
+     * @return
+     */
+    public static JsonResult fail(ServiceCodeEnum serviceCode,String message){
+        JsonResult jsonResult = new JsonResult();
+        jsonResult.setCode(2000);
+        jsonResult.setMsg(message);
+        return jsonResult;
+    }
+
 
 }

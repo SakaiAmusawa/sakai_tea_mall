@@ -22,7 +22,7 @@ public class Knife4jConfiguration {
     /**
      * 【重要】指定Controller包路径
      */
-    private static final String BASE_PACKAGE = "cn.tedu.tmall";
+    private static final String BASE_PACKAGE = "top.sakai.tmall.passport";
     /**
      * 组名
      */
@@ -69,26 +69,14 @@ public class Knife4jConfiguration {
 
     @Bean
     public Docket docket() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .host(HOST)
-                .apiInfo(apiInfo())
-                .groupName(GROUP_NAME)
-                .select()
+        return new Docket(DocumentationType.SWAGGER_2).host(HOST).apiInfo(apiInfo()).groupName(GROUP_NAME).select()
                 //basePackage 重要重要重要
-                .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))
-                .paths(PathSelectors.any())
-                .build();
-                //.extensions(openApiExtensionResolver.buildExtensions(GROUP_NAME));
+                .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE)).paths(PathSelectors.any()).build();
+        //.extensions(openApiExtensionResolver.buildExtensions(GROUP_NAME));
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title(TITLE)
-                .description(DESCRIPTION)
-                .termsOfServiceUrl(TERMS_OF_SERVICE_URL)
-                .contact(new Contact(CONTACT_NAME, CONTACT_URL, CONTACT_EMAIL))
-                .version(VERSION)
-                .build();
+        return new ApiInfoBuilder().title(TITLE).description(DESCRIPTION).termsOfServiceUrl(TERMS_OF_SERVICE_URL).contact(new Contact(CONTACT_NAME, CONTACT_URL, CONTACT_EMAIL)).version(VERSION).build();
     }
 
 }
