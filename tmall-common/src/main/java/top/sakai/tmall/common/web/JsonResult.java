@@ -31,9 +31,10 @@ public class JsonResult implements Serializable {
 
     /**
      * 正常返回结果
+     *
      * @return
      */
-    public static JsonResult ok(){
+    public static JsonResult ok() {
         JsonResult jsonResult = new JsonResult();
         jsonResult.setCode(1000);
         jsonResult.setMsg("ok");
@@ -42,9 +43,10 @@ public class JsonResult implements Serializable {
 
     /**
      * 正常返回结果
+     *
      * @return
      */
-    public static JsonResult ok(Object data){
+    public static JsonResult ok(Object data) {
         JsonResult jsonResult = new JsonResult();
         jsonResult.setCode(1000);
         jsonResult.setMsg("ok");
@@ -53,12 +55,12 @@ public class JsonResult implements Serializable {
     }
 
 
-
     /**
      * 异常返回结果
+     *
      * @return
      */
-    public static JsonResult fail(String message){
+    public static JsonResult fail(String message) {
         JsonResult jsonResult = new JsonResult();
         jsonResult.setCode(2000);
         jsonResult.setMsg(message);
@@ -67,9 +69,10 @@ public class JsonResult implements Serializable {
 
     /**
      * 异常返回结果
+     *
      * @return
      */
-    public static JsonResult fail(ServiceCodeEnum serviceCode,String message){
+    public static JsonResult fail(ServiceCodeEnum serviceCode, String message) {
         JsonResult jsonResult = new JsonResult();
         jsonResult.setCode(2000);
         jsonResult.setMsg(message);

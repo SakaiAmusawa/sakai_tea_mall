@@ -14,12 +14,12 @@ import javax.validation.Validation;
 @Configuration
 public class ValidationConfiguration {
 
-    public ValidationConfiguration(){
+    public ValidationConfiguration() {
         log.debug("创建验证框架配置类-ValidationConfiguration");
     }
 
     @Bean
-    public javax.validation.Validator validator(){
+    public javax.validation.Validator validator() {
         return Validation.byProvider(HibernateValidator.class)
                 .configure()
                 .failFast(true) //快速失败
