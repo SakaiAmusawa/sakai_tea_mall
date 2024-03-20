@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * Redis的使用演示 配合 RedisConfiguration使用！！！
@@ -57,6 +59,26 @@ public class RedisTests {
         opsForValue.set("k2", "v2-new");
         System.out.println(opsForValue.get("k2"));
         redisTemplate.delete("k2");
+    }
+
+    @Test
+    public void testRedisTemplateString() {
+    }
+
+    @Test
+    public void testRedisTemplateList() {
+
+        ListOperations<String, Serializable> listOperations = redisTemplate.opsForList();
+        listOperations.rightPush("test-list", "hello");
+
+        Serializable index = listOperations.index("test-list", 0);
+        System.out.println(index);
+
+        Long size = listOperations.size("test-list");
+        System.out.println(size);
+
+        List<Serializable> range = listOperations.range("test-list", 0, -1);
+        System.out.println(range);
     }
 
 }
