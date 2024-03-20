@@ -30,11 +30,13 @@ public class RedisTests {
         System.out.println(connection);
         String k1 = "k1";
         String v1 = "v1";
+        //放字节数组
         byte[] k1Bytes = k1.getBytes(StandardCharsets.UTF_8);
         byte[] v1Bytes = v1.getBytes(StandardCharsets.UTF_8);
         System.out.println(k1Bytes);
         System.out.println(v1Bytes);
         System.out.println(connection.set(k1Bytes, v1Bytes));
+        //取字节数字
         byte[] bytes = connection.get(k1Bytes);
         String s1 = new String(bytes);
         System.out.println(s1);
