@@ -11,6 +11,9 @@ spring:
     url: jdbc:mysql://localhost:3306/tedu_tea_mall
     username: root
     password: root
+  redis:
+    host: localhost
+    port: 6379
 
 logging:
   level:

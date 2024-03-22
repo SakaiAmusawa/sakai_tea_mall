@@ -1,9 +1,12 @@
 package top.sakai.tmall.passport.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.sakai.tmall.common.utils.JwtUtils;
+import top.sakai.tmall.passport.dao.repository.IUserCacheRepository;
 import top.sakai.tmall.passport.pojo.param.UserLoginInfoParam;
+import top.sakai.tmall.passport.pojo.po.UserStatePO;
 import top.sakai.tmall.passport.pojo.vo.UserLoginResultVO;
 import top.sakai.tmall.passport.service.IUserService;
 
@@ -15,6 +18,8 @@ import java.util.Map;
 public class UserServiceImpl implements IUserService {
 
     private final String secretKey = "fNesMDkqrJFdsfDSwAbFLJ8SnsHJ438AF72D73aKJSmfdsafdLKKAFKDSJ";
+    @Autowired
+    private IUserCacheRepository userCacheRepository;
 
     /**
      * 1 验证用户名
@@ -47,6 +52,13 @@ public class UserServiceImpl implements IUserService {
         //每次访问别的系统,都需要带着,浪费网络带宽,和存储空间
         String jwt = JwtUtils.generate(claims, secretKey);
         log.debug("生成用户的JWT数据：{}", jwt);
+        UserStatePO userStatePO = new UserStatePO();
+        userStatePO.setUserId(userId);
+        String auth = "[{authority:'/article/add'},{authority:'/article/detail'}]";
+        userStatePO.setAuth(auth);
+        userStatePO.setEnable(1);
+        log.debug("入参检查userStatePO {}", userStatePO);
+        userCacheRepository.saveUserState(userStatePO);
         //定义登录返回数据
         UserLoginResultVO userLoginResultVO = new UserLoginResultVO();
         //设置上面生成好的token
