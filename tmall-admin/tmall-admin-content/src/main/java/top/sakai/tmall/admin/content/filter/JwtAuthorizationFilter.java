@@ -52,6 +52,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         //如果没有携带token 证明你还没登录,跳转到登录页面
         //if token == null 返回 ServiceException 业务码 code = 401 message = "未登录"
         // 前端页面 拿到业务码 if code == 401 跳转到登录页面
+        response.setContentType("application/json;charset=UTF-8");
         if (jwt == null) {
             filterChain.doFilter(request, response);
             return;
@@ -94,7 +95,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             userState = userStatePO.getEnable();
         }
         //管理员把用户状态设置为禁用，同时更新redis中的用户状态
-        if(userState == 0){
+        if (userState != 0) {
             String message = "用户已被禁用,如有问题请联系客服";
             JsonResult jsonResult = JsonResult.fail(ServiceCodeEnum.USER_STATE_DISABLE, message);
             PrintWriter writer = response.getWriter();
