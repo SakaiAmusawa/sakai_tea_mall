@@ -10,14 +10,14 @@ public enum ServiceCodeEnum {
     //粒度
     BAD_REQUEST_NAME_EXIST(2000, "名称不能重复"),
 
-    ERROR_UNAUTHORIZED(4001, "验证为通过"),
+    ERROR_UNAUTHORIZED(4001, "验证为通过"), USER_STATE_DISABLE(7020, "用户被禁用"),
     /**
      * 错误：JWT格式错误
      */
     ERR_JWT_MALFORMED(6020, "jwt格式错误");
 
-    private Integer code;
-    private String msg;
+    private final Integer code;
+    private final String msg;
 
     ServiceCodeEnum(Integer code, String msg) {
         this.code = code;

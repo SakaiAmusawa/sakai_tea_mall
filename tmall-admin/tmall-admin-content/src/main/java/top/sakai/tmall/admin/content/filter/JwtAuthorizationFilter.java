@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.MalformedJwtException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +12,9 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import top.sakai.tmall.admin.content.dao.repository.IUserCacheRepository;
 import top.sakai.tmall.common.pojo.CurrentUser;
+import top.sakai.tmall.common.pojo.po.UserStatePO;
 import top.sakai.tmall.common.utils.JwtUtils;
 import top.sakai.tmall.common.web.JsonResult;
 import top.sakai.tmall.common.web.ServiceCodeEnum;
@@ -31,6 +34,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private final String HEADER_AUTHORIZATION = "Authorization";
 
     private final String secretKey = "fNesMDkqrJFdsfDSwAbFLJ8SnsHJ438AF72D73aKJSmfdsafdLKKAFKDSJ";
+
+    @Autowired
+    private IUserCacheRepository userCacheRepository;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -79,7 +86,23 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         //我们用Security 帮忙我们做权限验证
         //权限列表 [增加文章,增加商品]
         //todo 从数据库表中获取当前用户权限列表
-        String authoritiesJsonString = "[{authority:'/article/add'},{authority:'/article/detail'}]"; //通过用户id获取用户权限 name root id 1  权限列表 [增加文章,增加商品]
+        String authoritiesJsonString = "";
+        Integer userState = 0;
+        UserStatePO userStatePO = userCacheRepository.getUserState(currentUser.getId());
+        if (userStatePO != null) {
+            authoritiesJsonString = userStatePO.getAuth();
+            userState = userStatePO.getEnable();
+        }
+        //管理员把用户状态设置为禁用，同时更新redis中的用户状态
+        if(userState == 0){
+            String message = "用户已被禁用,如有问题请联系客服";
+            JsonResult jsonResult = JsonResult.fail(ServiceCodeEnum.USER_STATE_DISABLE, message);
+            PrintWriter writer = response.getWriter();
+            writer.println(JSON.toJSONString(jsonResult));
+            writer.close();
+            return;
+        }
+
         //把用户的权限列表 权限列表 [增加文章,增加商品] 转成 security 的 List<SimpleGrantedAuthority>
         List<SimpleGrantedAuthority> authorities = JSON.parseArray(authoritiesJsonString, SimpleGrantedAuthority.class);
         //构建 security Authentication对象 入参 1 当前用户, 2 不用管 3 权限列表
