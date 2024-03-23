@@ -86,24 +86,22 @@ public class CartRepository implements ICartRepository {
         List<CartPO> result = new ArrayList<>();
         Map<String, Object> entries = hashOperations.entries(cartKey);
         if (!CollectionUtils.isEmpty(entries)) {
-            entries.forEach((k,v) ->{
+            entries.forEach((k, v) -> {
                 if (k.contains("goods")) {
-                    System.out.println("过滤后的" + v);
-                    CartPO currentCartPo = (CartPO)v;
+                    CartPO currentCartPo = (CartPO) v;
                     result.add(currentCartPo);
                 }
-                System.out.println(k + ":" + v);
+            });
+            result.forEach(po -> {
+                Long goodsId = po.getGoodsId();
+                String goodsNumHashKey = getGoodsNumHashKey(goodsId);
+                String goodsCheckedHashKey = getGoodsCheckedHashKey(goodsId);
+                Object goodsNum = entries.get(goodsNumHashKey);
+                Object goodsChecked = entries.get(goodsCheckedHashKey);
+                po.setGoodsNum(Integer.valueOf(String.valueOf(goodsNum)));
+                po.setChecked(Integer.valueOf(String.valueOf(goodsChecked)));
             });
         }
-        result.forEach(po ->{
-            Long goodsId = po.getGoodsId();
-            String goodsNumHashKey = getGoodsNumHashKey(goodsId);
-            String goodsCheckedHashKey = getGoodsCheckedHashKey(goodsId);
-            Object goodsNum = entries.get(goodsNumHashKey);
-            Object goodsChecked = entries.get(goodsCheckedHashKey);
-            po.setGoodsNum(Integer.valueOf(String.valueOf(goodsNum)));
-            po.setChecked(Integer.valueOf(String.valueOf(goodsChecked)));
-        });
         return result;
     }
 

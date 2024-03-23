@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
@@ -25,4 +26,7 @@ public class CartPO implements Serializable {
 
     @ApiModelProperty(value = "是否选中")
     Integer checked;
+
+    Long addCartTime;
+
 }

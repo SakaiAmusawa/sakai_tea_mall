@@ -11,6 +11,7 @@ import top.sakai.tmall.front.mall.pojo.vo.CartVO;
 import top.sakai.tmall.front.mall.service.ICartService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -43,6 +44,7 @@ public class CartService implements ICartService {
         Long addPrice = (long) (9999.99 * 100);
         cartPO.setAddPrice(addPrice);
         cartPO.setChecked(1);
+        cartPO.setAddCartTime(System.currentTimeMillis());
         cartRepository.add(cartPO, user.getId());
     }
 
@@ -71,6 +73,7 @@ public class CartService implements ICartService {
     @Override
     public List<CartVO> list(Long userId) {
         List<CartPO> cartPOS = cartRepository.list(userId);
+        cartPOS.sort((o1, o2) -> o2.getAddCartTime().compareTo(o1.getAddCartTime()));
         List<CartVO> result = new ArrayList<>();
         cartPOS.forEach(po -> {
             CartVO cartVO = new CartVO();
