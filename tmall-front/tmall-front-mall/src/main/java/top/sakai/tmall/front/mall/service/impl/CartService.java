@@ -40,4 +40,26 @@ public class CartService implements ICartService {
         cartPO.setChecked(1);
         cartRepository.add(cartPO, user.getId());
     }
+
+    @Override
+    public void modify(CurrentUser user, Long goodsId, Integer goodsNum) {
+
+    }
+
+    @Override
+    public void incr(CurrentUser user, Long goodsId, Integer goodsNum) {
+
+        CartPO cartpo = cartRepository.getGoodsByGoodsIdAndUserId(user.getId(), goodsId);
+        log.debug("incr查询商品结果：" + cartpo);
+        if (cartpo != null) {
+            cartRepository.addCartGoodsNum(user.getId(), goodsId, goodsNum);
+        }
+
+
+    }
+
+    @Override
+    public void reduce(CurrentUser user, Long goodsId, Integer goodsNum) {
+
+    }
 }
