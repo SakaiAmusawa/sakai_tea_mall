@@ -105,6 +105,40 @@ public class CartRepository implements ICartRepository {
         return result;
     }
 
+    @Override
+    public void del(Long useId, Long goodsId) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        String cartKey = getCartKey(useId);
+        String goodsNumHashKey = getGoodsNumHashKey(goodsId);
+        String goodsCheckedHashKey = getGoodsCheckedHashKey(goodsId);
+        String goodsInfoHashKey = getGoodsInfoHashKey(goodsId);
+        hashOperations.delete(cartKey, goodsNumHashKey, goodsCheckedHashKey, goodsInfoHashKey);
+    }
+
+    @Override
+    public void modify(Long id, Long goodsId, Integer goodsNum) {
+        String cartKey = getCartKey(id);
+        String goodsNumHashKey = getGoodsNumHashKey(goodsId);
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        hashOperations.put(cartKey, goodsNumHashKey, goodsNum);
+    }
+
+    @Override
+    public void checkIn(Long id, Long goodsId) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        String cartKey = getCartKey(id);
+        String goodsCheckedHashKey = getGoodsCheckedHashKey(goodsId);
+        hashOperations.put(cartKey, goodsCheckedHashKey, 1);
+    }
+
+    @Override
+    public void checkOut(Long id, Long goodsId) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        String cartKey = getCartKey(id);
+        String goodsCheckedHashKey = getGoodsCheckedHashKey(goodsId);
+        hashOperations.put(cartKey, goodsCheckedHashKey, 0);
+    }
+
     private String getCartKey(Long userId) {
 
         String CART_KEY = "mall_cart_";

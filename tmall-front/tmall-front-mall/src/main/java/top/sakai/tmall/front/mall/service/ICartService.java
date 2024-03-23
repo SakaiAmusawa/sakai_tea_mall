@@ -15,4 +15,10 @@ public interface ICartService {
     void reduce(CurrentUser user, Long goodsId, Integer goodsNum);
 
     List<CartVO> list(Long userId);
+
+    void del(Long useId, Long goodsId);
+
+    void checkIn(Long id, Long goodsId);
+
+    void checkOut(Long id, Long goodsId);
 }

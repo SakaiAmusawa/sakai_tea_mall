@@ -12,4 +12,12 @@ public interface ICartRepository {
     void addCartGoodsNum(Long userId, Long goodsId, Integer goodsNum);
 
     List<CartPO> list(Long userId);
+
+    void del(Long useId, Long goodsId);
+
+    void modify(Long id, Long goodsId, Integer goodsNum);
+
+    void checkIn(Long id, Long goodsId);
+
+    void checkOut(Long id, Long goodsId);
 }

@@ -11,7 +11,6 @@ import top.sakai.tmall.front.mall.pojo.vo.CartVO;
 import top.sakai.tmall.front.mall.service.ICartService;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -50,7 +49,7 @@ public class CartService implements ICartService {
 
     @Override
     public void modify(CurrentUser user, Long goodsId, Integer goodsNum) {
-
+        cartRepository.modify(user.getId(), goodsId, goodsNum);
     }
 
     @Override
@@ -81,5 +80,20 @@ public class CartService implements ICartService {
             result.add(cartVO);
         });
         return result;
+    }
+
+    @Override
+    public void del(Long useId, Long goodsId) {
+        cartRepository.del(useId, goodsId);
+    }
+
+    @Override
+    public void checkIn(Long id, Long goodsId) {
+        cartRepository.checkIn(id, goodsId);
+    }
+
+    @Override
+    public void checkOut(Long id, Long goodsId) {
+        cartRepository.checkOut(id, goodsId);
     }
 }

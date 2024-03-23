@@ -9,10 +9,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 import top.sakai.tmall.common.pojo.CurrentUser;
 import top.sakai.tmall.common.response.JsonResult;
@@ -73,6 +70,30 @@ public class CartController {
         log.debug("商品列表-入参 用户id:{}", user.getId());
         List<CartVO> cartVOS = cartService.list(user.getId());
         return JsonResult.ok(cartVOS);
+    }
+
+    @ApiOperation("删除购物车中的内容")
+    @PostMapping("/del")
+    public JsonResult del(@ApiIgnore @AuthenticationPrincipal CurrentUser user, @RequestParam @Range(min = 1, message = "请输入合法的商品ID") Long goodsId) {
+        log.debug("删除购物车中的内容列表-入参 用户id:{}", user.getId());
+        cartService.del(user.getId(), goodsId);
+        return JsonResult.ok();
+    }
+
+    @ApiOperation("选中商品")
+    @PostMapping("/checkIn")
+    public JsonResult checkIn(@ApiIgnore @AuthenticationPrincipal CurrentUser user, @RequestParam @Range(min = 1, message = "请输入合法的商品ID") Long goodsId) {
+        log.debug("选中商品-入参 用户id:{}", user.getId());
+        cartService.checkIn(user.getId(), goodsId);
+        return JsonResult.ok();
+    }
+
+    @ApiOperation("取消选中商品")
+    @PostMapping("/checkOut")
+    public JsonResult checkOut(@ApiIgnore @AuthenticationPrincipal CurrentUser user, @RequestParam @Range(min = 1, message = "请输入合法的商品ID") Long goodsId) {
+        log.debug("取消选中商品列表-入参 用户id:{}", user.getId());
+        cartService.checkOut(user.getId(), goodsId);
+        return JsonResult.ok();
     }
 
 }
