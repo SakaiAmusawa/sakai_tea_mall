@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,9 +68,9 @@ public class CartController {
     }
 
     @ApiOperation("我的购物车")
-    @PostMapping("/list")
+    @GetMapping("/list")
     public JsonResult list(@ApiIgnore @AuthenticationPrincipal CurrentUser user) {
-        log.debug("减少商品-入参 用户id:{}", user.getId());
+        log.debug("商品列表-入参 用户id:{}", user.getId());
         List<CartVO> cartVOS = cartService.list(user.getId());
         return JsonResult.ok(cartVOS);
     }
