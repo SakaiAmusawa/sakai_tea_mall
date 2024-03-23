@@ -86,7 +86,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         //我们用Security 帮忙我们做权限验证
         //权限列表 [增加文章,增加商品]
-        //todo 从数据库表中获取当前用户权限列表
         String authoritiesJsonString = "";
         Integer userState = 0;
         UserStatePO userStatePO = userCacheRepository.getUserState(currentUser.getId());

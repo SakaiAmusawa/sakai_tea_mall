@@ -20,7 +20,7 @@ public class RedisConfiguration {
         redisTemplate.setKeySerializer(RedisSerializer.string());
         redisTemplate.setValueSerializer(RedisSerializer.json());
         redisTemplate.setHashKeySerializer(RedisSerializer.json());
-        redisTemplate.setHashValueSerializer(RedisSerializer.json()); // todo 为何设置Hash
+        redisTemplate.setHashValueSerializer(RedisSerializer.json());
         return redisTemplate;
     }
 }

@@ -76,8 +76,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         //可以通过ip地址和浏览器信息来判断你登录时候的和现在访问的是不是匹配
         log.debug("开始检查缓存中用户的状态……");
         //判断用户状态是否启用 如果禁用 返回 状态
-
-        //续期 todo
         // name root id 1  权限列表 [增加文章,增加商品]
         //把token解析出来的那个map,从map里获取用户信息,封装成一个对象 CurrentUser
         CurrentUser currentUser = new CurrentUser(); // 当前用户
@@ -91,9 +89,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         //我们用Security 帮忙我们做权限验证
         //权限列表 [增加文章,增加商品]
-        //todo 从数据库表中获取当前用户权限列表
-        // 复杂的关联查询 Repository mapper 能不能用mybaits-plus 不建议,老老实实用mybatis
-        // 复杂查询 每次重数据库查 有点慢 可以加缓存 redis
         UserStatePO userStatePO = userCacheRepository.getUserState(currentUser.getId());
         String authoritiesJsonString = "";
         Integer userState = 0;

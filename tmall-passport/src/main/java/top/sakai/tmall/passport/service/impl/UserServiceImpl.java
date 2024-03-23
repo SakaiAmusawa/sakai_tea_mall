@@ -35,10 +35,8 @@ public class UserServiceImpl implements IUserService {
     public UserLoginResultVO login(UserLoginInfoParam userLoginInfoParam) {
         //用户名
         String username = userLoginInfoParam.getUsername();
-        //1 todo 验证用户名 通过数据库来验证 我们讲过 不带大家演示
         //密码
         String password = userLoginInfoParam.getPassword();
-        // 2 todo 验证密码 通过数据库查询 不做 我们讲过 不带大家演示
         //伪造的,应该通过用户名去数据库查询(用户名是唯一的)
         Long userId = 1L; //区分唯一用户唯一标识的id
         // 可选的 记录用户登录日志,登录次数 可选的业务逻辑
