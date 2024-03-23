@@ -1,12 +1,17 @@
 package top.sakai.tmall.front.mall.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.sakai.tmall.common.pojo.CurrentUser;
 import top.sakai.tmall.front.mall.dao.repository.ICartRepository;
 import top.sakai.tmall.front.mall.pojo.po.CartPO;
+import top.sakai.tmall.front.mall.pojo.vo.CartVO;
 import top.sakai.tmall.front.mall.service.ICartService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -61,5 +66,17 @@ public class CartService implements ICartService {
     @Override
     public void reduce(CurrentUser user, Long goodsId, Integer goodsNum) {
 
+    }
+
+    @Override
+    public List<CartVO> list(Long userId) {
+        List<CartPO> cartPOS = cartRepository.list(userId);
+        List<CartVO> result = new ArrayList<>();
+        cartPOS.forEach(po -> {
+            CartVO cartVO = new CartVO();
+            BeanUtils.copyProperties(po, cartVO);
+            result.add(cartVO);
+        });
+        return result;
     }
 }

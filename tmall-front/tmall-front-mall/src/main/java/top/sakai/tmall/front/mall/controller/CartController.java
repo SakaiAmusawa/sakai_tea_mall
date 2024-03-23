@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 import top.sakai.tmall.common.pojo.CurrentUser;
 import top.sakai.tmall.common.response.JsonResult;
+import top.sakai.tmall.front.mall.pojo.vo.CartVO;
 import top.sakai.tmall.front.mall.service.ICartService;
+
+import java.util.List;
 
 @Api(tags = "购物车服务")
 @Slf4j
@@ -61,6 +64,14 @@ public class CartController {
         log.debug("减少商品-入参 用户id:{},商品id:{},商品数量:{}", user.getId(), goodsId, goodsNum);
         cartService.reduce(user, goodsId, goodsNum);
         return JsonResult.ok();
+    }
+
+    @ApiOperation("减少一个或多个商品")
+    @PostMapping("/list")
+    public JsonResult list(@ApiIgnore @AuthenticationPrincipal CurrentUser user) {
+        log.debug("减少商品-入参 用户id:{}", user.getId());
+        List<CartVO> cartVOS = cartService.list(user.getId());
+        return JsonResult.ok(cartVOS);
     }
 
 }
