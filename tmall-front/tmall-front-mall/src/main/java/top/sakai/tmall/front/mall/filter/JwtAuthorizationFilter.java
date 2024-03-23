@@ -1,11 +1,5 @@
 package top.sakai.tmall.front.mall.filter;
 
-import top.sakai.tmall.common.pojo.CurrentUser;
-import top.sakai.tmall.common.pojo.po.UserStatePO;
-import top.sakai.tmall.common.utils.JwtUtils;
-import top.sakai.tmall.common.web.JsonResult;
-import top.sakai.tmall.common.web.ServiceCodeEnum;
-import top.sakai.tmall.front.mall.dao.repository.IUserCacheRepository;
 import com.alibaba.fastjson.JSON;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.MalformedJwtException;
@@ -18,6 +12,12 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import top.sakai.tmall.common.pojo.CurrentUser;
+import top.sakai.tmall.common.pojo.po.UserStatePO;
+import top.sakai.tmall.common.utils.JwtUtils;
+import top.sakai.tmall.common.web.JsonResult;
+import top.sakai.tmall.common.web.ServiceCodeEnum;
+import top.sakai.tmall.front.mall.dao.repository.IUserCacheRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -60,7 +60,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         Claims claims;
         try {
             claims = JwtUtils.parse(jwt, secretKey);
-        }catch (MalformedJwtException e) {
+        } catch (MalformedJwtException e) {
             log.warn("解析JWT时出现异常：MalformedJwtException");
             String message = "非法访问，你的本次操作已经被记录！";
             JsonResult jsonResult = JsonResult.fail(ServiceCodeEnum.ERR_JWT_MALFORMED, message);
@@ -70,7 +70,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             return;
         }
         //解密成功表示 token是合法的,用户也是登录了
-        log.debug("token解密后用户信息:{}",claims);
+        log.debug("token解密后用户信息:{}", claims);
         //判断当前这个用户是否有权限执行这个操作 //增加文章
         // log.debug("开始检查JWT是否存在盗用的问题……");
         //可以通过ip地址和浏览器信息来判断你登录时候的和现在访问的是不是匹配
@@ -82,7 +82,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         //把token解析出来的那个map,从map里获取用户信息,封装成一个对象 CurrentUser
         CurrentUser currentUser = new CurrentUser(); // 当前用户
         currentUser.setId(claims.get("id", Long.class));
-        currentUser.setUsername(claims.get("name",String.class));
+        currentUser.setUsername(claims.get("name", String.class));
         Long creatTime = claims.get("liveTime", Long.class);
         long now = System.currentTimeMillis();
         //if (( now - creatTime) > "过期时间-30") {
@@ -97,14 +97,14 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         UserStatePO userStatePO = userCacheRepository.getUserState(currentUser.getId());
         String authoritiesJsonString = "";
         Integer userState = 0;
-        if (userStatePO != null ) {
+        if (userStatePO != null) {
             authoritiesJsonString = userStatePO.getAuth();
             userState = userStatePO.getEnable();
 
         }
         //管理员把用户状态设置为禁用  程序会把用户表的用户状态更新为 enable = 0 ,同时更新redis的用户状态enable值为 0 ;
         //判断下用户状态
-        if(userState == 0){
+        if (userState == 0) {
             String message = "用户已被禁用,如有问题请联系客服";
             JsonResult jsonResult = JsonResult.fail(ServiceCodeEnum.USER_STATE_DISABLE, message);
             PrintWriter writer = response.getWriter();

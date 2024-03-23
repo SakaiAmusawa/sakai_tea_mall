@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)

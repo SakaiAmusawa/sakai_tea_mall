@@ -37,7 +37,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <!--todo 为啥这不需要加版本号-->
         </dependency>
         <!--mysql-数据库驱动-->
         <dependency>
@@ -48,7 +47,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.3.1</version><!--todo 为啥这需要加版本号-->
+            <version>2.3.1</version>
         </dependency>
         <!--mybaits-plus-->
         <dependency>

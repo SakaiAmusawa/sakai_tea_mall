@@ -37,6 +37,7 @@ public class CartService implements ICartService {
         cartPO.setGoodsName("HUAWEI-P6000");
         Long addPrice = (long) (9999.99 * 100);
         cartPO.setAddPrice(addPrice);
-        cartRepository.add(cartPO,user.getId());
+        cartPO.setChecked(1);
+        cartRepository.add(cartPO, user.getId());
     }
 }
