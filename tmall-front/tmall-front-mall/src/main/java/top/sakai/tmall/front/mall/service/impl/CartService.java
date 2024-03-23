@@ -87,6 +87,7 @@ public class CartService implements ICartService {
         cartRepository.del(useId, goodsId);
     }
 
+    // todo 判断商品状态（商品是否存在）
     @Override
     public void checkIn(Long id, Long goodsId) {
         cartRepository.checkIn(id, goodsId);
