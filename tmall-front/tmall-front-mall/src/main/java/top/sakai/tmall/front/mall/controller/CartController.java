@@ -66,7 +66,7 @@ public class CartController {
         return JsonResult.ok();
     }
 
-    @ApiOperation("减少一个或多个商品")
+    @ApiOperation("我的购物车")
     @PostMapping("/list")
     public JsonResult list(@ApiIgnore @AuthenticationPrincipal CurrentUser user) {
         log.debug("减少商品-入参 用户id:{}", user.getId());
