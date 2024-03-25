@@ -18,7 +18,7 @@ public interface ICartService {
 
     void del(Long useId, Long goodsId);
 
-    void checkIn(Long id, Long goodsId);
+    void pick(Long id, Long goodsId);
 
-    void checkOut(Long id, Long goodsId);
+    void unpick(Long id, Long goodsId);
 }

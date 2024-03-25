@@ -81,18 +81,18 @@ public class CartController {
     }
 
     @ApiOperation("选中商品")
-    @PostMapping("/checkIn")
-    public JsonResult checkIn(@ApiIgnore @AuthenticationPrincipal CurrentUser user, @RequestParam @Range(min = 1, message = "请输入合法的商品ID") Long goodsId) {
-        log.debug("选中商品-入参 用户id:{}", user.getId());
-        cartService.checkIn(user.getId(), goodsId);
+    @PostMapping("/pick")
+    public JsonResult pick(@ApiIgnore @AuthenticationPrincipal CurrentUser user, @RequestParam @Range(min = 1, message = "请输入合法的商品ID") Long goodsId) {
+        log.debug("取消选中商品列表-入参 用户id:{},商品id:{}", user.getId(), goodsId);
+        cartService.pick(user.getId(), goodsId);
         return JsonResult.ok();
     }
 
     @ApiOperation("取消选中商品")
-    @PostMapping("/checkOut")
-    public JsonResult checkOut(@ApiIgnore @AuthenticationPrincipal CurrentUser user, @RequestParam @Range(min = 1, message = "请输入合法的商品ID") Long goodsId) {
-        log.debug("取消选中商品列表-入参 用户id:{}", user.getId());
-        cartService.checkOut(user.getId(), goodsId);
+    @PostMapping("/unpick")
+    public JsonResult unpick(@ApiIgnore @AuthenticationPrincipal CurrentUser user, @RequestParam @Range(min = 1, message = "请输入合法的商品ID") Long goodsId) {
+        log.debug("取消选中商品列表-入参 用户id:{},商品id:{}", user.getId(), goodsId);
+        cartService.unpick(user.getId(), goodsId);
         return JsonResult.ok();
     }
 

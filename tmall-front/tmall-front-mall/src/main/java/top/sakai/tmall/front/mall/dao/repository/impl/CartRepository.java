@@ -124,20 +124,13 @@ public class CartRepository implements ICartRepository {
     }
 
     @Override
-    public void checkIn(Long id, Long goodsId) {
+    public void updateCheckStatusByUserIdAndGoodsId(Long id, Long goodsId, Integer checkStatus) {
         HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
         String cartKey = getCartKey(id);
         String goodsCheckedHashKey = getGoodsCheckedHashKey(goodsId);
-        hashOperations.put(cartKey, goodsCheckedHashKey, 1);
+        hashOperations.put(cartKey, goodsCheckedHashKey, checkStatus);
     }
 
-    @Override
-    public void checkOut(Long id, Long goodsId) {
-        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-        String cartKey = getCartKey(id);
-        String goodsCheckedHashKey = getGoodsCheckedHashKey(goodsId);
-        hashOperations.put(cartKey, goodsCheckedHashKey, 0);
-    }
 
     private String getCartKey(Long userId) {
 

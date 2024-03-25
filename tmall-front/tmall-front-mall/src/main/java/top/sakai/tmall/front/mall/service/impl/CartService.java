@@ -36,6 +36,12 @@ public class CartService implements ICartService {
      */
     @Override
     public void addCart(CurrentUser user, Long goodsId, Integer goodsNum) {
+        CartPO exists = cartRepository.getGoodsByGoodsIdAndUserId(user.getId(), goodsId);
+        // todo 1.PO内的值未改变 2.添加商品后状态跟着改变（改改一个更适合的添加方法）
+        if (exists != null) {
+            cartRepository.addCartGoodsNum(user.getId(), goodsId, goodsNum);
+            return;
+        }
         CartPO cartPO = new CartPO();
         cartPO.setGoodsId(goodsId);
         cartPO.setGoodsNum(goodsNum);
@@ -60,7 +66,6 @@ public class CartService implements ICartService {
         if (cartpo != null) {
             cartRepository.addCartGoodsNum(user.getId(), goodsId, goodsNum);
         }
-
 
     }
 
@@ -87,14 +92,15 @@ public class CartService implements ICartService {
         cartRepository.del(useId, goodsId);
     }
 
-    // todo 判断商品状态（商品是否存在）
     @Override
-    public void checkIn(Long id, Long goodsId) {
-        cartRepository.checkIn(id, goodsId);
+    public void pick(Long id, Long goodsId) {
+        // todo 判断商品状态（商品是否存在）
+        cartRepository.updateCheckStatusByUserIdAndGoodsId(id, goodsId, 1);
     }
 
     @Override
-    public void checkOut(Long id, Long goodsId) {
-        cartRepository.checkOut(id, goodsId);
+    public void unpick(Long id, Long goodsId) {
+        // todo 判断商品状态（商品是否存在）
+        cartRepository.updateCheckStatusByUserIdAndGoodsId(id, goodsId, 0);
     }
 }

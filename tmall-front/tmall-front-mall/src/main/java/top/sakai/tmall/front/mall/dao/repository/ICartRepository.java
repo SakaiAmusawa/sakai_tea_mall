@@ -17,7 +17,5 @@ public interface ICartRepository {
 
     void modify(Long id, Long goodsId, Integer goodsNum);
 
-    void checkIn(Long id, Long goodsId);
-
-    void checkOut(Long id, Long goodsId);
+    void updateCheckStatusByUserIdAndGoodsId(Long id, Long goodsId, Integer checkStatus);
 }
