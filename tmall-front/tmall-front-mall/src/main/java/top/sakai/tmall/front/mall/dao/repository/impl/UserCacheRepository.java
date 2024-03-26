@@ -16,8 +16,11 @@ import java.util.Map;
 @Slf4j
 public class UserCacheRepository implements IUserCacheRepository {
 
-    @Autowired
-    private RedisTemplate<String, Serializable> redisTemplate;
+    private final RedisTemplate<String, Serializable> redisTemplate;
+
+    public UserCacheRepository(RedisTemplate<String, Serializable> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     @Override
     public UserStatePO getUserState(Long id) {

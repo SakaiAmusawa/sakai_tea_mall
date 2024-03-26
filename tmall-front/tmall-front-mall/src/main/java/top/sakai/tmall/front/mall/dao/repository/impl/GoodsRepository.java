@@ -10,8 +10,11 @@ import java.util.List;
 
 @Repository
 public class GoodsRepository implements IGoodsRepository {
-    @Autowired
-    private GoodsMapper goodsMapper;
+    private final GoodsMapper goodsMapper;
+
+    public GoodsRepository(GoodsMapper goodsMapper) {
+        this.goodsMapper = goodsMapper;
+    }
 
     @Override
     public List<GoodsPO> listByGoodsIds(List<Long> goodsIds) {

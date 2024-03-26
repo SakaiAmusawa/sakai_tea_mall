@@ -21,8 +21,11 @@ import top.sakai.tmall.front.mall.service.IOrderService;
 @RequestMapping("/order")
 public class OrderController {
 
-    @Autowired
-    private IOrderService orderService;
+    private final IOrderService orderService;
+
+    public OrderController(IOrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @ApiOperation(value = "创建订单")
     @PostMapping("/create")

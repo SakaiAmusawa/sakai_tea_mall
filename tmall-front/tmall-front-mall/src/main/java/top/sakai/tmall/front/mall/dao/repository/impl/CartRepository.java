@@ -19,8 +19,11 @@ import java.util.Map;
 @Slf4j
 public class CartRepository implements ICartRepository {
 
-    @Autowired
-    private RedisTemplate<String, Serializable> redisTemplate;
+    private final RedisTemplate<String, Serializable> redisTemplate;
+
+    public CartRepository(RedisTemplate<String, Serializable> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     @Override
     public void add(CartPO cartPO, Long userId) {

@@ -9,8 +9,11 @@ import top.sakai.tmall.front.mall.pojo.po.UserAddressPO;
 
 @Repository
 public class UserRepository implements IUserRepository {
-    @Autowired
-    private UserAddressMapper userAddressMapper;
+    private final UserAddressMapper userAddressMapper;
+
+    public UserRepository(UserAddressMapper userAddressMapper) {
+        this.userAddressMapper = userAddressMapper;
+    }
 
     @Override
     public UserAddressPO getAddressByUserIdAndAddressId(Long userId, Integer addressId) {

@@ -9,8 +9,11 @@ import top.sakai.tmall.front.mall.pojo.po.OrderItemPO;
 @Repository
 public class OrderItemRepository implements IOrderItemRepository {
 
-    @Autowired
-    private OrderItemMapper orderItemMapper;
+    private final OrderItemMapper orderItemMapper;
+
+    public OrderItemRepository(OrderItemMapper orderItemMapper) {
+        this.orderItemMapper = orderItemMapper;
+    }
 
     @Override
     public Integer save(OrderItemPO orderItemPO) {
