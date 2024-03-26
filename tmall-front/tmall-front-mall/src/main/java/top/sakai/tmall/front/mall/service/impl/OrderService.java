@@ -1,6 +1,6 @@
 package top.sakai.tmall.front.mall.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import top.sakai.tmall.common.exception.ServiceException;
 import top.sakai.tmall.common.pojo.CurrentUser;
@@ -29,17 +29,48 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService implements IOrderService {
 
-    @Autowired
-    private IOrderRepository orderRepository;
-    @Autowired
-    private IOrderItemRepository orderItemRepository;
-    @Autowired
-    private IGoodsRepository goodsRepository;
-    @Autowired
-    private IUserRepository userRepository;
+    private final IOrderRepository orderRepository;
+    private final IOrderItemRepository orderItemRepository;
+    private final IGoodsRepository goodsRepository;
+    private final IUserRepository userRepository;
+
+    public OrderService(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IGoodsRepository goodsRepository, IUserRepository userRepository) {
+        this.orderRepository = orderRepository;
+        this.orderItemRepository = orderItemRepository;
+        this.goodsRepository = goodsRepository;
+        this.userRepository = userRepository;
+    }
+
+    /**
+     * 构建商品详情
+     *
+     * @param goodsNum  商品的数量
+     * @param goodsId   商品的ID
+     * @param salePrice 售价
+     * @return orderItemPO
+     */
+    @NotNull
+    private static OrderItemPO buildOrderItemPO(Integer goodsNum, Long goodsId, BigDecimal salePrice) {
+        OrderItemPO orderItemPO = new OrderItemPO();
+        orderItemPO.setGoodsNum(goodsNum);
+        orderItemPO.setGoodsId(goodsId);
+        orderItemPO.setSaleUnitPrice(salePrice);
+        return orderItemPO;
+    }
+
+    @NotNull
+    private static OrderPO bulidOrderPO(@NotNull CurrentUser user, BigDecimal totalPrice, Integer goodsNums) {
+        OrderPO orderPO = new OrderPO();
+        orderPO.setOrderNo(UUID.randomUUID().toString());//uuid 后续可以雪花算法
+        orderPO.setTotalPrice(totalPrice);
+        orderPO.setBuyerId(user.getId());
+        orderPO.setGoodsNum(goodsNums);
+        orderPO.setOrderState(0);
+        return orderPO;
+    }
 
     @Override
-    public void createOrder(CurrentUser user, OrderAddParam orderAddParam) {
+    public void createOrder(CurrentUser user, @NotNull OrderAddParam orderAddParam) {
 
         //验证商品 商品是否存在，是否上架
         List<GoodsItemParam> goodsItemParams = orderAddParam.getGoodsItemParams();
@@ -53,11 +84,7 @@ public class OrderService implements IOrderService {
         }
 
         //查询商品是否上架
-        goods.forEach(g -> {
-            if ("0".equals(g.getIsPutOn())) {
-                throw new ServiceException(StatusCode.GOODS_NOT_PUT);
-            }
-        });
+        List<GoodsPO> goodsPOS = goods.stream().filter(g -> ((g.getIsPutOn() != null) && 0 == g.getIsPutOn())).collect(Collectors.toList());
 
         //判断用户信息
         UserAddressParam userAddressParam = orderAddParam.getUserAddressParam();
@@ -70,7 +97,7 @@ public class OrderService implements IOrderService {
         //计算商品价格
         Map<Long, GoodsPO> goodsGroup = goods.stream().collect(Collectors.toMap(GoodsPO::getId, Function.identity()));
         BigDecimal totalPrice = BigDecimal.ZERO;
-        Integer goodsNums = 0;
+        int goodsNums = 0;
         List<OrderItemPO> orderItemPOS = new ArrayList<>();
 
         for (GoodsItemParam goodsItemParam : goodsItemParams) {
@@ -81,21 +108,16 @@ public class OrderService implements IOrderService {
             BigDecimal multiply = salePrice.multiply(new BigDecimal(goodsNum));
             totalPrice = totalPrice.add(multiply);
             goodsNums = goodsNums + goodsNum;
-            OrderItemPO orderItemPO = new OrderItemPO();
-            orderItemPO.setGoodsNum(goodsNum);
-            orderItemPO.setGoodsId(goodsId);
-            orderItemPO.setSaleUnitPrice(salePrice);
+            OrderItemPO orderItemPO = buildOrderItemPO(goodsNum, goodsId, salePrice);
             //BeanUtils.copyProperties(goodsPO,orderItemPO);//copy 名称不一样导致 赋值失败
             orderItemPOS.add(orderItemPO);
         }
 
-        OrderPO orderPO = new OrderPO();
-        orderPO.setOrderNo(UUID.randomUUID().toString());//uuid 后续可以雪花算法
-        orderPO.setTotalPrice(totalPrice);
-        orderPO.setBuyerId(user.getId());
-        orderPO.setGoodsNum(goodsNums);
-        orderPO.setOrderState(0);
+        OrderPO orderPO = bulidOrderPO(user, totalPrice, goodsNums);
         Integer rows = orderRepository.save(orderPO);
+        if (rows != 1) {
+            throw new RuntimeException("商品插入失败");
+        }
 
         orderItemPOS.forEach(orderItemPO -> {
             orderItemPO.setOrderId(orderPO.getId());

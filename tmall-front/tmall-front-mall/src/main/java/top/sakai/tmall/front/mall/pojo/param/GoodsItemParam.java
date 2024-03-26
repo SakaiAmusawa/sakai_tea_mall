@@ -34,7 +34,6 @@ public class GoodsItemParam implements Serializable {
      * 价格
      * 单价还是总价  单价
      * 购物车入参的单价 我们订单能不能直接使用 10*2 == 20
-     * todo 购物车给的价格我们能不能用
      * 单价 加入的价格和结算的价格有可能不一样 不能用
      */
     Long price;
