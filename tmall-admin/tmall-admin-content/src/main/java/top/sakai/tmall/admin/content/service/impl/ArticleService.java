@@ -54,7 +54,7 @@ public class ArticleService implements IArticleService {
                 ArticleDetailPO articleDetailPO = new ArticleDetailPO();
                 articleDetailPO.setArticleId(articlePO.getId());
                 articleDetailPO.setDetail(articleAddParam.getContent());
-               // "".substring(10);//人为地制造一个异常模拟第二条数据保存时遇到问题
+                // "".substring(10);//人为地制造一个异常模拟第二条数据保存时遇到问题
                 int i = articleRepository.saveDetail(articleDetailPO);
                 if (i != 1) {
                     throw new RuntimeException("文章发送失败");

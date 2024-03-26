@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 

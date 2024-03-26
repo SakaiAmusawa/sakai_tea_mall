@@ -2,9 +2,7 @@ package top.sakai.tmall.front.mall.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import top.sakai.tmall.common.exception.ServiceException;
 import top.sakai.tmall.common.pojo.CurrentUser;
 import top.sakai.tmall.common.pojo.PageData;
@@ -20,7 +18,6 @@ import top.sakai.tmall.front.mall.pojo.po.GoodsPO;
 import top.sakai.tmall.front.mall.pojo.po.OrderItemPO;
 import top.sakai.tmall.front.mall.pojo.po.OrderPO;
 import top.sakai.tmall.front.mall.pojo.po.UserAddressPO;
-import top.sakai.tmall.front.mall.pojo.vo.OrderGoodsItemVO;
 import top.sakai.tmall.front.mall.pojo.vo.OrderListVO;
 import top.sakai.tmall.front.mall.service.IOrderService;
 
@@ -74,20 +71,6 @@ public class OrderService implements IOrderService {
         orderPO.setGoodsNum(goodsNums);
         orderPO.setOrderState(0);
         return orderPO;
-    }
-
-    @NotNull
-    private static OrderGoodsItemVO orderGoodsItemPO2VO(OrderItemPO orderItemPO) {
-        OrderGoodsItemVO orderGoodsItemVO = new OrderGoodsItemVO();
-        BeanUtils.copyProperties(orderItemPO, orderGoodsItemVO);
-        return orderGoodsItemVO;
-    }
-
-    @NotNull
-    private static OrderListVO orderPO2VO(OrderPO orderPO) {
-        OrderListVO orderListVO = new OrderListVO();
-        BeanUtils.copyProperties(orderPO, orderListVO);
-        return orderListVO;
     }
 
     @Override
@@ -150,30 +133,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public PageData<OrderListVO> listOrder(@NotNull CurrentUser user, Integer pageSize, Integer pageNum) {
-        PageData<OrderListVO> result = new PageData<>();
-        PageData<OrderPO> orderPOS = orderRepository.pageOrderListByUserId(user.getId(), pageSize, pageNum);
-        BeanUtils.copyProperties(orderPOS, result);
-        log.debug("订单列表信息 入参{},出参:{}", user.getId(), orderPOS);
-        List<OrderListVO> orderListVOS = new ArrayList<>();
-        if (orderPOS != null && !CollectionUtils.isEmpty(orderPOS.getList())) {
-            for (OrderPO orderPO : orderPOS.getList()) {
-                OrderListVO orderListVO = orderPO2VO(orderPO);
-                orderListVOS.add(orderListVO);
-                List<OrderItemPO> orderItemPOS = orderItemRepository.listOrderItemByOrderId(orderPO.getId());
-                log.debug("商品详情 入参：{}, 出参：{}", orderPO.getId(), orderItemPOS);
-                List<OrderGoodsItemVO> orderGoodsItemVOS = new ArrayList<>();
-                if (!CollectionUtils.isEmpty(orderItemPOS)) {
-                    for (OrderItemPO orderItemPO : orderItemPOS) {
-                        OrderGoodsItemVO orderGoodsItemVO = orderGoodsItemPO2VO(orderItemPO);
-                        orderGoodsItemVOS.add(orderGoodsItemVO);
-                    }
-                }
-                result.setList(orderListVOS);
-                orderListVO.setGoodsItemVOS(orderGoodsItemVOS);
-            }
-        }
-        return result;
+    public PageData<OrderListVO> listOrder(CurrentUser user, Integer pageSize, Integer pageNum) {
+
+        PageData<OrderListVO> orderListVO = new PageData<>();
+
+        return orderListVO;
     }
 
 }

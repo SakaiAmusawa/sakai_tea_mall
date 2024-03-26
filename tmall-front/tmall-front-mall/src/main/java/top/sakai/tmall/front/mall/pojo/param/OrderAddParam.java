@@ -34,7 +34,6 @@ public class OrderAddParam implements Serializable {
      * 购物车商品总价
      * todo 有可能有误差
      * 价格校验
-     *
      */
     Long totalPrice;
 
@@ -54,7 +53,6 @@ public class OrderAddParam implements Serializable {
      *
      *   用户基于某个服务在平台的协议
      */
-
 
 
 }

@@ -1,7 +1,6 @@
 package top.sakai.tmall.front.mall.dao.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import top.sakai.tmall.front.mall.dao.mapper.UserAddressMapper;
 import top.sakai.tmall.front.mall.dao.repository.IUserRepository;
