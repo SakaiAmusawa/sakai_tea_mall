@@ -2,7 +2,9 @@ package top.sakai.tmall.front.mall.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import top.sakai.tmall.common.exception.ServiceException;
 import top.sakai.tmall.common.pojo.CurrentUser;
 import top.sakai.tmall.common.pojo.PageData;
@@ -18,6 +20,7 @@ import top.sakai.tmall.front.mall.pojo.po.GoodsPO;
 import top.sakai.tmall.front.mall.pojo.po.OrderItemPO;
 import top.sakai.tmall.front.mall.pojo.po.OrderPO;
 import top.sakai.tmall.front.mall.pojo.po.UserAddressPO;
+import top.sakai.tmall.front.mall.pojo.vo.OrderGoodsItemVO;
 import top.sakai.tmall.front.mall.pojo.vo.OrderListVO;
 import top.sakai.tmall.front.mall.service.IOrderService;
 
@@ -135,9 +138,46 @@ public class OrderService implements IOrderService {
     @Override
     public PageData<OrderListVO> listOrder(CurrentUser user, Integer pageSize, Integer pageNum) {
 
-        PageData<OrderListVO> orderListVO = new PageData<>();
+        PageData<OrderListVO> result = new PageData<>();
 
-        return orderListVO;
+        //查询订单列表
+        Long userId = user.getId();
+        PageData<OrderPO> orderPOList = orderRepository.queryOrderByUserId(userId, pageSize, pageNum);
+        log.debug("商品订单列表 入参 ：userId{},pageSize{},pageNum{} ， 出参 ：orderPOList{}", userId, pageSize, pageNum, orderPOList);
+
+        //将查询到的结果放入result中
+        BeanUtils.copyProperties(orderPOList, result);
+        log.debug("检查结果：{}", result);
+
+        List<OrderListVO> orderListVOS = new ArrayList<>();
+        result.setList(orderListVOS);
+
+        //查询订单中的商品详情
+        //获取list中的每个orderId,并根据orderId查询商品详情列表
+        for (OrderPO orderPO : orderPOList.getList()) {
+
+            OrderListVO orderListVO = new OrderListVO();
+            BeanUtils.copyProperties(orderPO, orderListVO);
+            orderListVOS.add(orderListVO);
+
+            Long orderId = orderPO.getId();
+            List<OrderItemPO> orderItemPOS = orderItemRepository.queryOrderItemListByOrderId(orderId);
+            log.debug("入参：{}，出参：{}", orderId, orderItemPOS);
+
+            //将orderItemPOS转化为VOS
+            List<OrderGoodsItemVO> orderGoodsItemVOS = new ArrayList<>();
+            //进行非空检查
+            if (!CollectionUtils.isEmpty(orderItemPOS)) {
+                for (OrderItemPO orderItemPO : orderItemPOS) {
+                    OrderGoodsItemVO orderGoodsItemVO = new OrderGoodsItemVO();
+                    BeanUtils.copyProperties(orderItemPO, orderGoodsItemVO);
+                    orderGoodsItemVOS.add(orderGoodsItemVO);
+                }
+            }
+            orderListVO.setGoodsItemVOS(orderGoodsItemVOS);
+        }
+
+        return result;
     }
 
 }
