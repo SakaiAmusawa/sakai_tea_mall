@@ -1,10 +1,12 @@
 package top.sakai.tmall.front.mall.dao.repository.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Repository;
 import top.sakai.tmall.front.mall.dao.mapper.OrderItemMapper;
 import top.sakai.tmall.front.mall.dao.repository.IOrderItemRepository;
 import top.sakai.tmall.front.mall.pojo.po.OrderItemPO;
+
+import java.util.List;
 
 @Repository
 public class OrderItemRepository implements IOrderItemRepository {
@@ -18,5 +20,13 @@ public class OrderItemRepository implements IOrderItemRepository {
     @Override
     public Integer save(OrderItemPO orderItemPO) {
         return orderItemMapper.insert(orderItemPO);
+    }
+
+    @Override
+    public List<OrderItemPO> listOrderItemByOrderId(Long orderId) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("order_id", orderId);
+        return orderItemMapper.selectList(queryWrapper);
+
     }
 }
