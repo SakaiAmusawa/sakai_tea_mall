@@ -106,6 +106,12 @@ public class OrderService implements IOrderService {
 
         //查询商品是否上架
         List<GoodsPO> goodsPOS = goods.stream().filter(g -> ((g.getIsPutOn() != null) && 0 == g.getIsPutOn())).collect(Collectors.toList());
+        for (GoodsPO goodsPO : goodsPOS) {
+            Integer isPutOn = goodsPO.getIsPutOn();
+            if (isPutOn == null) {
+                throw new RuntimeException("商品未上架");
+            }
+        }
 
         //判断用户信息
         UserAddressParam userAddressParam = orderAddParam.getUserAddressParam();
@@ -156,7 +162,7 @@ public class OrderService implements IOrderService {
         BeanUtils.copyProperties(orderPOS, result);
         log.debug("订单列表信息 入参{},出参:{}", user.getId(), orderPOS);
         List<OrderListVO> orderListVOS = new ArrayList<>();
-        if (orderPOS != null && !CollectionUtils.isEmpty(orderPOS.getList())) {
+        if (!CollectionUtils.isEmpty(orderPOS.getList())) {
             for (OrderPO orderPO : orderPOS.getList()) {
                 OrderListVO orderListVO = orderPO2VO(orderPO);
                 orderListVOS.add(orderListVO);
