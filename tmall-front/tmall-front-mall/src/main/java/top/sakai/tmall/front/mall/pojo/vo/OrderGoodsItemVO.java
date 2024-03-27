@@ -15,7 +15,7 @@ public class OrderGoodsItemVO implements Serializable {
     Long goodsId;
 
     @ApiModelProperty("商品数量")
-    Long goodsNum;
+    Integer goodsNum;
 
 
 }
