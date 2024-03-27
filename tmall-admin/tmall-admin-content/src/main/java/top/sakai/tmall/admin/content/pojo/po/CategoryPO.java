@@ -25,4 +25,6 @@ public class CategoryPO {
      */
     Integer enable;
     Integer isDisplay;
+    Long parentId;
+
 }

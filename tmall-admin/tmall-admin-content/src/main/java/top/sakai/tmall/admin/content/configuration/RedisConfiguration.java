@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class RedisConfiguration {
     @Bean
     public RedisTemplate<String, Serializable> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+
         //演示Redis的设置
         RedisTemplate<String, Serializable> redisTemplate = new RedisTemplate<>();
         //设置连接工厂  new 一个RedisTemplate必须设置ConnectionFactory

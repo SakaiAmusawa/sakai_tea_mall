@@ -25,12 +25,12 @@ public class OrderItemRepository implements IOrderItemRepository {
     }
 
     @Override
-    public List<OrderItemPO> queryOrderItemListByOrderId(Long orderId) {
-        log.debug("入参：{}", orderId);
-        QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("order_id", orderId);
-        log.debug("出参：{}", orderItemMapper.selectList(wrapper));
-        return orderItemMapper.selectList(wrapper);
-    }
+    public List<OrderItemPO> listOrderItemByOrderId(Long orderId) {
+        log.debug("查询订单列表入参：{}", orderId);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("order_id", orderId);
+        log.debug("查询订单列表出参参：{}", orderItemMapper.selectList(queryWrapper));
+        return orderItemMapper.selectList(queryWrapper);
 
+    }
 }
