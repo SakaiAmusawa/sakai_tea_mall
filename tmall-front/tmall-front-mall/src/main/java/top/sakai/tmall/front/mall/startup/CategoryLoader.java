@@ -1,6 +1,7 @@
 package top.sakai.tmall.front.mall.startup;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,8 @@ import top.sakai.tmall.front.mall.service.ICategoryService;
 @Slf4j
 public class CategoryLoader implements ApplicationRunner {
 
-    private final ICategoryService categoryService;
-
-    public CategoryLoader(ICategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
+    @Autowired
+    private ICategoryService categoryService;
 
 
     /**

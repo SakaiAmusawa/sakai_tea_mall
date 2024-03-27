@@ -1,7 +1,7 @@
 package top.sakai.tmall.front.mall.service;
 
 
-import top.sakai.tmall.front.mall.pojo.vo.MallCategoryTreeVO;
+import top.sakai.tmall.common.pojo.vo.MallCategoryTreeVO;
 
 import java.util.List;
 

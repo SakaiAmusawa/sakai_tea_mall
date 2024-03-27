@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @TableName("mall_category")
-public class MallCategoryPO {
+public class CategoryPO {
     @TableId(type = IdType.AUTO)
     Long id;
     String name;
