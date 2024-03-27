@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import top.sakai.tmall.front.mall.service.ICategoryService;
 
 /**
  * 预加载类别数据到redis
@@ -11,7 +12,16 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class CategoryLoader implements ApplicationRunner {
+
+    private final ICategoryService categoryService;
+
+    public CategoryLoader(ICategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
+
     /**
+     * 缓存预热
      * 加载类别数据到redis
      *
      * @param args 应用参数
@@ -20,5 +30,7 @@ public class CategoryLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.debug("ApplicationRunner 开始加载类别数据到redis");
+        categoryService.initCategoryTree();
+        log.debug("ApplicationRunner 类别数据加载完成");
     }
 }

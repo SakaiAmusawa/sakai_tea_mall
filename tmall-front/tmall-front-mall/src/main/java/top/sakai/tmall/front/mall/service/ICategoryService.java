@@ -5,7 +5,7 @@ import top.sakai.tmall.front.mall.pojo.vo.MallCategoryTreeVO;
 
 import java.util.List;
 
-public interface IMallCategoryService {
+public interface ICategoryService {
 
 
     List<MallCategoryTreeVO> showTree();
@@ -13,4 +13,6 @@ public interface IMallCategoryService {
     List<MallCategoryTreeVO> treeTopCategory();
 
     List<MallCategoryTreeVO> treeChildrenCategory(Long parentId);
+
+    void initCategoryTree();
 }
