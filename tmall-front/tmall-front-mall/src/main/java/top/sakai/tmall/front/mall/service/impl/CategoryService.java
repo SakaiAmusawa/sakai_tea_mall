@@ -52,48 +52,18 @@ public class CategoryService implements ICategoryService {
     }
 
     public List<MallCategoryTreeVO> treeCategoryFromDB() {
-        //从数据库查询数据
-        //A数据量较小 几百条  可以获取所有
-        //B数据量较大 几万条 能不能获取所有呢?
-        // 1 数据库能不能查出来 性能很差
-        // 2 内存能不能接的住  如果接不住 OutMemoryError 内存溢出
-        // todo 数据太大怎么解决
-        // 先查一部分 哪部分?
-        //A 全查
-        //String key = "ALL";
-        //List<MallCategoryTreeVO> cachedVo = cached.get("ALL");
-        //if (!CollectionUtils.isEmpty(cachedVo)) {
-        //    return cachedVo;
-        //}else {
+
         List<CategoryPO> all =
                 categoryRepository.getAll();
         log.debug("查询所有类别数据:{}", all);
-        //把po转换为vo
-        // 怎么把平铺的数据转换为层级的数据 todo
-        //1 先取最顶级 parent = 0  北京  山西
-        //2 取下一级  parent_id = 北京的id 山西的id  北京的下一级 海淀 山西的下一级是 太原
-        //3 取下一级的下一级  parent_id = 海淀id parent_id = 太原id  海淀的下一级 没有终止 太原的下一级
-        //4 .... 何时是个头呢,什么时候停止呢  1 判断当前级别还有没有子级 如果没了,stop
-        //5 递归  自己调自己  终止条件 退出这个循环  -Xss jvm 栈 栈溢出
-        //6 如果是明确的知道层级 层级很少 省市区 可以 简单的方法 一级一级的往下找
 
-        //先取最顶级
         List<MallCategoryTreeVO> topCategory = getTopCategory(all);
         //获取顶级的子级
         //parent_id 等于顶级的id 就是顶级的子级
         for (MallCategoryTreeVO topVo : topCategory) {
             appendChild(topVo, all);
         }
-        //第一次访问的时候从数据库查,并且放到缓存  性能差点
-        //第二次从缓存里取 ,提升性能
 
-        // 怎么解决第一次查询数据库性能差的问题?
-        // 直接放,怎么直接,show me the code
-        // 1 项目启动的时候 加载 ?
-        //   如何在项目启动的时候搞点事
-        //   配置 redis 配置 redis 不支持
-
-        //   cached.put(key,topCategory);
         return topCategory;
         //}
         //return mockData();
